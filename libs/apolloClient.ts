@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
-import { ApolloClient, HttpLink, InMemoryCache, from, NormalizedCacheObject } from '@apollo/client'
+import { ApolloClient, InMemoryCache, from, NormalizedCacheObject, createHttpLink } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import merge from 'deepmerge'
 import isEqual from 'lodash/isEqual'
+import {setContext} from '@apollo/client/link/context';
+import { tokenVar } from './apolloVar'
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
 
@@ -18,16 +20,26 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`)
 })
 
-const httpLink = new HttpLink({
+const httpLink = createHttpLink({
   uri: 'http://localhost:4000/graphql', 
-  credentials: 'same-origin',
 })
+
+const authLink = setContext((_, {headers}) => {
+  return {
+    headers: {
+      ...headers,
+      'x-jwt': tokenVar(),
+    },
+  };
+});
+
+const cache = new InMemoryCache()
 
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: from([errorLink, httpLink]),
-    cache: new InMemoryCache(),
+    link: from([errorLink, authLink.concat(httpLink)]),
+    cache,
   })
 }
 

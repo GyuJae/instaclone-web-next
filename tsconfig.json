@@ -19,6 +19,7 @@
       "@libs/*": ["libs/*"],
       "@components/*": ["components/*"],
       "@apollo/*": ["apollo/*"],
+      "@assets/*": ["assets/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

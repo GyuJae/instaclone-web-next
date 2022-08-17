@@ -1,10 +1,18 @@
-import type { NextPage } from 'next'
+import Layout from '@components/Layout'
+import { ReactElement } from 'react'
+import { NextPageWithLayout } from './_app'
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <h1>hello world</h1>
     </div>
+  )
+}
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout>{page}</Layout>
   )
 }
 

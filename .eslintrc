@@ -1,5 +1,5 @@
 {
-  "extends": ["next", "plugin:tailwindcss/recommended"],
+  "extends": ["next", "next/core-web-vitals", "eslint:recommended", "plugin:tailwindcss/recommended"],
   "root": true,
   "plugins": ["tailwindcss","unused-imports"],
   "rules": {
