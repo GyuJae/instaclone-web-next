@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 
 interface IProps {
   inView: boolean;
-  title?: string
 }
 
 type TPathnameType = 'login' | 'createAccount'
@@ -18,6 +17,8 @@ const LoggedOut: React.FC<PropsWithChildren<IProps>> = ({ children, inView }) =>
     '/auth/create-account': 'createAccount',
     '/auth/login': 'login'
   }[pathname] || 'login'
+
+  
 
   if (!inView) return null
   

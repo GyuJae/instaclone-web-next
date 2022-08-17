@@ -1,7 +1,7 @@
 import { useLogin } from '@apollo/mutations/login.mutation';
-import AuthErrorMessage from '@components/AuthErrorMessage';
-import AuthInput from '@components/AuthInput';
-import AuthSubmitButton from '@components/AuthSubmitButton';
+import AuthErrorMessage from '@components/Auth/AuthErrorMessage';
+import AuthInput from '@components/Auth/AuthInput';
+import AuthSubmitButton from '@components/Auth/AuthSubmitButton';
 import Layout from '@components/Layout'
 import { logInUser } from '@libs/apolloVar';
 import { useRouter } from 'next/router';
@@ -74,7 +74,7 @@ const Login: NextPageWithLayout = () => {
 
 Login.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout>
+    <Layout title='Login'>
       {page}
     </Layout>
   )

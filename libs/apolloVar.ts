@@ -1,6 +1,6 @@
 import { makeVar } from "@apollo/client";
 
-const TOKEN = 'token'
+export const TOKEN = 'token'
 
 export const isLoggedInVar = makeVar<boolean>(false);
 export const tokenVar = makeVar<string>('');

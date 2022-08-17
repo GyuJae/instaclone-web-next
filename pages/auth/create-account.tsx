@@ -1,7 +1,7 @@
 import { useCreateAccount } from '@apollo/mutations/createAccount.mutation';
-import AuthErrorMessage from '@components/AuthErrorMessage';
-import AuthInput from '@components/AuthInput';
-import AuthSubmitButton from '@components/AuthSubmitButton';
+import AuthErrorMessage from '@components/Auth/AuthErrorMessage';
+import AuthInput from '@components/Auth/AuthInput';
+import AuthSubmitButton from '@components/Auth/AuthSubmitButton';
 import Layout from '@components/Layout'
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react'
@@ -90,7 +90,7 @@ const CretaeAccount: NextPageWithLayout = () => {
 
 CretaeAccount.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout>
+    <Layout title='Create Account'>
       {page}
     </Layout>
   )
