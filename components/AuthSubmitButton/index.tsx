@@ -1,12 +1,15 @@
 import { cls } from '@libs/index';
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 interface IProps {
-  payload: string;
+  payload: string | ReactElement;
   isValid: boolean;
+  loading: boolean;
 }
 
-const AuthSubmitButton:React.FC<IProps> = ({payload, isValid}) => {
+const AuthSubmitButton:React.FC<IProps> = ({payload, isValid, loading}) => {
+  const buttonPayload = loading ? 'loading...' : payload
+  
   return (
     <button
       type='submit'
@@ -15,7 +18,7 @@ const AuthSubmitButton:React.FC<IProps> = ({payload, isValid}) => {
         !isValid ? 'opacity-70': ''
       )}
     >
-      {payload}
+      {buttonPayload}
     </button>
   )
 }

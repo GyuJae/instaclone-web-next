@@ -1,7 +1,9 @@
+import { useCreateAccount } from '@apollo/mutations/createAccount.mutation';
 import AuthErrorMessage from '@components/AuthErrorMessage';
 import AuthInput from '@components/AuthInput';
 import AuthSubmitButton from '@components/AuthSubmitButton';
 import Layout from '@components/Layout'
+import { useRouter } from 'next/router';
 import { ReactElement } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { NextPageWithLayout } from '../_app'
@@ -13,12 +15,23 @@ interface IForm {
 }
 
 const CretaeAccount: NextPageWithLayout = () => {
+  const {createAccountMutate, loading} = useCreateAccount()
+  const router = useRouter()
+
   const { register, handleSubmit, formState: { isValid, errors } } = useForm<IForm>({
     mode: 'onChange'
   })
 
   const onSubmit: SubmitHandler<IForm> = (input) => {
-    console.log(input)
+    if (loading) return;
+    createAccountMutate({
+      variables: {
+        input
+      },
+      onCompleted: () => {
+        router.push('/auth/login')
+      }
+    });
   }
 
   return (
@@ -70,7 +83,7 @@ const CretaeAccount: NextPageWithLayout = () => {
           message='Minimum 8 characters or more and maximum 20 characters or less'
         />
       </>
-      <AuthSubmitButton isValid={isValid} payload='Create Account'/>
+      <AuthSubmitButton isValid={isValid} payload='Create Account' loading={loading} />
     </form>
   )
 }
