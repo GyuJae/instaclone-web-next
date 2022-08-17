@@ -9,9 +9,9 @@ const LoggedIn:React.FC<PropsWithChildren<IProps>> = ({children, inView}) => {
   
   if(!inView) return null
   return (
-    <div>
+    <main>
       {children}
-    </div>
+    </main>
   )
 }
 

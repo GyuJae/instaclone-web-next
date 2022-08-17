@@ -8,13 +8,17 @@ interface IProps {
   title?: string
 }
 
-const Layout:React.FC<PropsWithChildren<IProps>> = ({title}) => {
+const Layout:React.FC<PropsWithChildren<IProps>> = ({title,children}) => {
   const isLoggedIn = useReactiveVar(isLoggedInVar)
   
   return (
     <>
-      <LoggedIn inView={isLoggedIn} title={title} />
-      <LoggedOut inView={!isLoggedIn} title={title} />
+      <LoggedIn inView={isLoggedIn} title={title}>
+        {children}
+      </LoggedIn>
+      <LoggedOut inView={!isLoggedIn} title={title}>
+        {children}
+      </LoggedOut>
     </>
   )
 }
