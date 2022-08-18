@@ -18,8 +18,6 @@ const LoggedOut: React.FC<PropsWithChildren<IProps>> = ({ children, inView }) =>
     '/auth/login': 'login'
   }[pathname] || 'login'
 
-  
-
   if (!inView) return null
   
   return (

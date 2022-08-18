@@ -5,10 +5,10 @@ import { cls } from '@libs/index';
 
 interface IProps {
   size?: "S" | "M" | "L";
-  avatar: string | null;
+  avatar?: string | null;
 }
 
-const Avatar:React.FC<IProps> = ({size = "S", avatar}) => {
+const Avatar: React.FC<IProps> = ({ size = "S", avatar }) => {
   const sizeToNum = {
     "S": 48,
     "M": 30,

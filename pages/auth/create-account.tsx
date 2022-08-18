@@ -90,7 +90,7 @@ const CretaeAccount: NextPageWithLayout = () => {
 
 CretaeAccount.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout title='Create Account'>
+    <Layout title='Create Account' protectedPage={false}>
       {page}
     </Layout>
   )

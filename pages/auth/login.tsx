@@ -74,7 +74,7 @@ const Login: NextPageWithLayout = () => {
 
 Login.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout title='Login'>
+    <Layout title='Login' protectedPage={false}>
       {page}
     </Layout>
   )
