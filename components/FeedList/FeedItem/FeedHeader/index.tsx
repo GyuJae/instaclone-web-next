@@ -9,7 +9,7 @@ interface IProps {
 
 const FeedHeader:React.FC<IProps> = ({user}) => {
   return (
-    <div className='flex px-2'>
+    <div className='flex px-2 pb-2'>
       <Link href={`/profile/${user.id}`}>
         <a className='flex items-center space-x-2'>
           <Avatar avatar={user.avatar} />

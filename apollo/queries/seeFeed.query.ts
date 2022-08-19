@@ -44,16 +44,18 @@ export interface ISeeFeedUser {
   isMe: boolean;
 }
 
+export interface ISeeFeedFile {
+  id: number;
+  posterPath: string;
+}
+
 export interface ISeeFeedPost {
   id: number;
   caption: string;
   isLiked: boolean;
   likeCount: number;
   commentCount: number;
-  files: {
-    id: number;
-    posterPath: string;
-  }[];
+  files: ISeeFeedFile[];
   user: ISeeFeedUser;
 }
 
