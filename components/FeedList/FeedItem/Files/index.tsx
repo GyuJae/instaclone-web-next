@@ -5,7 +5,7 @@ import { wrap } from "popmotion";
 import Left from '@assets/svgs/chevron-left.svg'
 import Right from '@assets/svgs/chevron-right.svg'
 import { cls } from '@libs/index';
-
+import Indicator from './Indicator'
 interface IProps {
   files: ISeeFeedFile[]
 }
@@ -66,33 +66,38 @@ const Files: React.FC<IProps> = ({ files }) => {
   }
 
   return (
-    <div className='relative flex h-96 w-full items-center justify-center overflow-hidden bg-black'>
-      <AnimatePresence initial={false} custom={direction}>
-        <motion.img
-          key={page}
-          src={files[fileIndex].posterPath}
-          custom={direction}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{
-            x: { type: "spring", stiffness: 350, damping: 35},
-            opacity: { duration: 0.2 }
-          }}
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={1}
-          onDragEnd={handleDragEnd}
-          className='absolute'
-        />
-      </AnimatePresence>
-      <button type='button' onClick={handleClickLeft} className={cls(styles.arrowButton, 'left-5')}>
-        <Left />
-      </button>
-      <button type='button' onClick={handleClickRight} className={cls(styles.arrowButton, 'right-5')}>
-        <Right />
-      </button>
+    <div className='relative'>
+      <div className='relative flex h-96 w-full items-center justify-center overflow-hidden bg-black'>
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.img
+            key={page}
+            src={files[fileIndex].posterPath}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 350, damping: 35},
+              opacity: { duration: 0.2 }
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={handleDragEnd}
+            className='absolute'
+          />
+        </AnimatePresence>
+        <button type='button' onClick={handleClickLeft} className={cls(styles.arrowButton, 'left-5')}>
+          <Left />
+        </button>
+        <button type='button' onClick={handleClickRight} className={cls(styles.arrowButton, 'right-5')}>
+          <Right />
+        </button>
+      </div>
+      <div className='absolute -bottom-5 w-full'>
+        <Indicator totalCount={files.length} currentIndex={fileIndex} />
+      </div>
     </div>
   )
 }
