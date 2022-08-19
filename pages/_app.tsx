@@ -1,10 +1,12 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppContext, AppProps } from 'next/app'
 import { useApollo } from '@libs/apolloClient'
 import { ApolloProvider } from '@apollo/client'
-import { ReactElement, ReactNode, useEffect } from 'react'
+import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
-import { isLoggedInVar, TOKEN, tokenVar } from '@libs/apolloVar'
+import { isLoggedInVar, tokenVar } from '@libs/apolloVar'
+import App from 'next/app'
+import { withAppSession } from '@libs/withSession'
 
 export type NextPageWithLayout = NextPage & {
   // eslint-disable-next-line unused-imports/no-unused-vars
@@ -20,18 +22,24 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const apolloClient = useApollo(pageProps)
   const getLayout = Component.getLayout || ((page) => page)
   
-  useEffect(() => {
-    (() => {
-      isLoggedInVar(!!(localStorage.getItem(TOKEN)))
-      tokenVar(localStorage.getItem(TOKEN) || "")
-    })();
-  },[])
-  
   return (
     <ApolloProvider client={apolloClient}>
       {getLayout(<Component {...pageProps} />)}
     </ApolloProvider>
   )
+}
+
+MyApp.getInitialProps = async (context: AppContext) => {
+  const appProps = await App.getInitialProps(context)
+  if (context.ctx.req && context.ctx.res) {
+    const {token} = await withAppSession(context)
+    tokenVar(token || "")
+    isLoggedInVar(!!token)
+  }
+  
+  return {
+    ...appProps
+  }
 }
 
 export default MyApp

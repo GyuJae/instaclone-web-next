@@ -10,7 +10,7 @@ export const useMe = () => {
   };
 };
 
-const ME_QUERY = gql`
+export const ME_QUERY = gql`
   query Me {
     me {
       user {

@@ -2,8 +2,11 @@ import { useLogin } from '@apollo/mutations/login.mutation';
 import AuthErrorMessage from '@components/Auth/AuthErrorMessage';
 import AuthInput from '@components/Auth/AuthInput';
 import AuthSubmitButton from '@components/Auth/AuthSubmitButton';
-import Layout from '@components/Layout'
+import LoggedOutLayout from '@components/Layout/LoggedOutLayout';
 import { logInUser } from '@libs/apolloVar';
+import { withSsrSession } from '@libs/withSession';
+import { useSetToken } from 'hooks/useSetToken';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -17,6 +20,7 @@ interface IForm {
 const Login: NextPageWithLayout = () => {
   const rounter = useRouter()
   const { loginMutate, loading } = useLogin()
+  const {mutate: setTokenMutate} = useSetToken()
   
   const { register, handleSubmit, formState: { isValid, errors } } = useForm<IForm>({
     mode: 'onChange'
@@ -29,8 +33,9 @@ const Login: NextPageWithLayout = () => {
       },
       onCompleted: ({login: {ok, token}}) => {
         if (ok && token) {
-          logInUser(token)
-          rounter.replace('/')
+          setTokenMutate(token);
+          logInUser(token);
+          rounter.replace('/');
         }
       }
     })
@@ -74,10 +79,26 @@ const Login: NextPageWithLayout = () => {
 
 Login.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout title='Login' protectedPage={false}>
+    <LoggedOutLayout title='Login'>
       {page}
-    </Layout>
+    </LoggedOutLayout>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = withSsrSession(
+  async ({ req }) => {
+    if (req.session.token) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/"
+        }
+      }
+    }
+
+    return {
+      props: {}
+    }
+})
 
 export default Login

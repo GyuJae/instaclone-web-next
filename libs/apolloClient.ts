@@ -4,7 +4,6 @@ import { onError } from '@apollo/client/link/error'
 import merge from 'deepmerge'
 import isEqual from 'lodash/isEqual'
 import {setContext} from '@apollo/client/link/context';
-import { tokenVar } from './apolloVar'
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
 
@@ -24,18 +23,19 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:4000/graphql', 
 })
 
-const authLink = setContext((_, {headers}) => {
-  return {
-    headers: {
-      ...headers,
-      'x-jwt': tokenVar(),
-    },
-  };
-});
 
 const cache = new InMemoryCache()
 
-function createApolloClient() {
+function createApolloClient(token?: string) {
+  const authLink = setContext((_, { headers }) => {
+    return {
+      headers: {
+        ...headers,
+        'x-jwt': token || "",
+      },
+    };
+  });
+
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: from([errorLink, authLink.concat(httpLink)]),
@@ -43,8 +43,8 @@ function createApolloClient() {
   })
 }
 
-export function initializeApollo(initialState = null) {
-  const _apolloClient = apolloClient ?? createApolloClient()
+export function initializeApollo(initialState = null,  token ?: string) {
+  const _apolloClient = apolloClient ?? createApolloClient(token)
 
   if (initialState) {
     const existingCache = _apolloClient.extract()

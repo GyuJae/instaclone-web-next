@@ -1,4 +1,4 @@
-import Layout from '@components/Layout'
+import LoggedInLayout from '@components/Layout/LoggedInLayout'
 import { ReactElement } from 'react'
 import { NextPageWithLayout } from './_app'
 
@@ -13,7 +13,7 @@ const Search: NextPageWithLayout = () => {
 
 Search.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout>{page}</Layout>
+    <LoggedInLayout title='Search'>{page}</LoggedInLayout>
   )
 }
 

@@ -20,6 +20,7 @@
       "@components/*": ["components/*"],
       "@apollo/*": ["apollo/*"],
       "@assets/*": ["assets/*"],
+      "@hooks/*": ["hooks/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -2,7 +2,9 @@ import { useCreateAccount } from '@apollo/mutations/createAccount.mutation';
 import AuthErrorMessage from '@components/Auth/AuthErrorMessage';
 import AuthInput from '@components/Auth/AuthInput';
 import AuthSubmitButton from '@components/Auth/AuthSubmitButton';
-import Layout from '@components/Layout'
+import LoggedOutLayout from '@components/Layout/LoggedOutLayout';
+import { withSsrSession } from '@libs/withSession';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -90,10 +92,27 @@ const CretaeAccount: NextPageWithLayout = () => {
 
 CretaeAccount.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout title='Create Account' protectedPage={false}>
+    <LoggedOutLayout title='Create Account'>
       {page}
-    </Layout>
+    </LoggedOutLayout>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = withSsrSession(
+  async ({ req }) => {
+    if (req.session.token) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/"
+        }
+      }
+    }
+
+    return {
+      props: {}
+    }
+})
+
 
 export default CretaeAccount
