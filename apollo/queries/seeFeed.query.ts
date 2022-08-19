@@ -37,6 +37,13 @@ export const SEE_FEED_QUERY = gql`
   ${USER_FEED_FRAGMENT}
 `;
 
+export interface ISeeFeedUser {
+  id: number;
+  username: string;
+  avatar: string | null;
+  isMe: boolean;
+}
+
 export interface ISeeFeedPost {
   id: number;
   caption: string;
@@ -47,12 +54,7 @@ export interface ISeeFeedPost {
     id: number;
     posterPath: string;
   }[];
-  user: {
-    id: number;
-    username: string;
-    avatar: string | null;
-    isMe: boolean;
-  };
+  user: ISeeFeedUser;
 }
 
 export interface ISeeFeedOutput {

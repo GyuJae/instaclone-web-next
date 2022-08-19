@@ -1,5 +1,6 @@
 import { ME_QUERY } from '@apollo/queries/me.query'
-import { SEE_FEED_QUERY, useSeeFeed } from '@apollo/queries/seeFeed.query'
+import { SEE_FEED_QUERY } from '@apollo/queries/seeFeed.query'
+import FeedList from '@components/FeedList'
 import LoggedInLayout from '@components/Layout/LoggedInLayout'
 import { addApolloState, initializeApollo } from '@libs/apolloClient'
 import { withSsrSession } from '@libs/withSession'
@@ -8,10 +9,9 @@ import { ReactElement } from 'react'
 import { NextPageWithLayout } from './_app'
 
 const Home: NextPageWithLayout = () => {
-  const {posts} = useSeeFeed()
   return (
-    <div className="flex flex-col items-center justify-center py-2">
-      <h1>hello world</h1>
+    <div className="mx-auto max-w-[460px] py-2">
+      <FeedList />
     </div>
   )
 }
