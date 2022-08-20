@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { ISeeFeedFile } from '@apollo/queries/seeFeed.query'
 import { Variants, AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { wrap } from "popmotion";
-import Left from '@assets/svgs/chevron-left.svg'
-import Right from '@assets/svgs/chevron-right.svg'
+import LeftIcon from '@assets/svgs/chevron-left.svg'
+import RightIcon from '@assets/svgs/chevron-right.svg'
 import { cls } from '@libs/index';
 import Indicator from './Indicator'
 
@@ -91,10 +91,10 @@ const Files: React.FC<IProps> = ({ files, isDetail = false }) => {
           />
         </AnimatePresence>
         <button type='button' onClick={handleClickLeft} className={cls(styles.arrowButton, 'left-5')}>
-          <Left />
+          <LeftIcon />
         </button>
         <button type='button' onClick={handleClickRight} className={cls(styles.arrowButton, 'right-5')}>
-          <Right />
+          <RightIcon />
         </button>
       </div>
       <div className={cls('absolute w-full', isDetail? "bottom-5" : "-bottom-5 ")}>

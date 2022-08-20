@@ -26,7 +26,7 @@ export const useCreateComment = () => {
           isMine: true,
           payload: variables.input.payload,
           user: {
-            ...user!,
+            ...user,
             isMe: true
           },
         };

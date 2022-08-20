@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import CircleUser from '@assets/svgs/circle-user.svg'
+import CircleUserIcon from '@assets/svgs/circle-user.svg'
 import { cls } from '@libs/index';
 
 interface IProps {
@@ -24,7 +24,7 @@ const Avatar: React.FC<IProps> = ({ size = "S", avatar }) => {
   if (!avatar) {
     return (
       <div className={cls(sizeToTailwind,"fill-gray-400")}>
-        <CircleUser />
+        <CircleUserIcon />
       </div>
     ) 
   }
