@@ -15,12 +15,14 @@ const Modal: React.FC<PropsWithChildren<IProps>> = ({children, inView, handler})
   
   useEffect(() => { 
     setMounted(true)
+
+    return () => setMounted(false)
   }, [])
   
-  if (!inView || mounted) return null;
+  if (!inView || !mounted) return null;
 
   return ReactDOM.createPortal(
-    <div className='fixed h-full min-h-screen w-screen bg-black/80'>
+    <div className='fixed left-0 top-0 z-50 flex min-h-screen w-screen items-center justify-center bg-black/60'>
       <div ref={containerRef}>
         {children}
       </div>

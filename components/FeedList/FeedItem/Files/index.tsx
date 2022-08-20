@@ -6,8 +6,10 @@ import Left from '@assets/svgs/chevron-left.svg'
 import Right from '@assets/svgs/chevron-right.svg'
 import { cls } from '@libs/index';
 import Indicator from './Indicator'
+
 interface IProps {
-  files: ISeeFeedFile[]
+  files: ISeeFeedFile[];
+  isDetail?: boolean
 }
 
 const variants: Variants = {
@@ -40,7 +42,7 @@ const styles = {
   arrowButton: 'absolute z-10 h-12 w-10 fill-gray-800 opacity-0 hover:opacity-60'
 }
 
-const Files: React.FC<IProps> = ({ files }) => {
+const Files: React.FC<IProps> = ({ files, isDetail = false }) => {
   const [[page, direction], setPage] = useState([0, 0]);
   const fileIndex = wrap(0, files.length, page);
 
@@ -67,7 +69,7 @@ const Files: React.FC<IProps> = ({ files }) => {
 
   return (
     <div className='relative'>
-      <div className='relative flex h-96 w-full items-center justify-center overflow-hidden bg-black'>
+      <div className={cls('relative flex w-full items-center justify-center overflow-hidden bg-black', isDetail ? "min-h-[480px]" : "min-h-[300px]")}>
         <AnimatePresence initial={false} custom={direction}>
           <motion.img
             key={page}
@@ -95,7 +97,7 @@ const Files: React.FC<IProps> = ({ files }) => {
           <Right />
         </button>
       </div>
-      <div className='absolute -bottom-5 w-full'>
+      <div className={cls('absolute w-full', isDetail? "bottom-5" : "-bottom-5 ")}>
         <Indicator totalCount={files.length} currentIndex={fileIndex} />
       </div>
     </div>

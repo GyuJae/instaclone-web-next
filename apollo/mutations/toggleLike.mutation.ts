@@ -10,7 +10,7 @@ export const useToggleLike = (postId: number, isLiked: boolean) => {
         postId,
       },
     },
-    update: (cache, {data}) => {
+    update: (cache, { data }) => {
       if (data?.toggleLike.ok) {
         const POST_ID = `PostEntity:${postId}`;
         cache.modify({
