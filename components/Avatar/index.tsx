@@ -11,8 +11,8 @@ interface IProps {
 const Avatar: React.FC<IProps> = ({ size = "S", avatar }) => {
   const sizeToNum = {
     "S": 48,
-    "M": 30,
-    "L": 40
+    "M": 60,
+    "L": 80
   }[size]
 
   const sizeToTailwind = {

@@ -26,3 +26,15 @@ export const USER_ME_FRAGMENT = gql`
     username
   }
 `;
+
+export const USER_PROFILE_FRAGEMENT = gql`
+  fragment UserProfileFragment on UserEntity {
+    id
+    avatar
+    username
+    isFollowing
+    isMe
+    totalFollower
+    totalFollowing
+  }
+`

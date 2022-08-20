@@ -8,7 +8,7 @@ import App from 'next/app'
 import { withAppSession } from '@libs/withSession'
 import { AUTH_INFO_QUERY } from '@apollo/queries/auth.query'
 
-export type NextPageWithLayout = NextPage & {
+export type NextPageWithLayout<P = {}> = NextPage<P> & {
   // eslint-disable-next-line unused-imports/no-unused-vars
   getLayout?: (page: ReactElement) => ReactNode
 }

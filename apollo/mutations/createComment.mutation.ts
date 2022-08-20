@@ -1,9 +1,9 @@
 import {gql, useMutation} from '@apollo/client';
-import { useMe } from '@apollo/queries/me.query';
+import { useCacheMe } from '@apollo/queries/me.query';
 import { ISeeComments, ISeeCommentsVariables, SEE_COMMENTS_QUERY } from '@apollo/queries/seeComments.query';
 
 export const useCreateComment = () => {
-  const { user } = useMe()
+  const { user } = useCacheMe();
   const [createCommentMutate, {loading, client}] = useMutation<
     ICreateCommentMutation,
     ICreateCommentVariables
