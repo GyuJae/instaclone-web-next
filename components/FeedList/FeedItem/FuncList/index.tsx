@@ -10,9 +10,9 @@ interface IProps {
 
 const FuncList: React.FC<IProps> = ({postId, isLiked}) => {
   return (
-    <div className='space-x-3 px-2 pb-0 pt-2'>
+    <div className='flex space-x-3 px-2 pb-0 pt-2'>
       <Liked isLiked={isLiked} postId={postId} />
-      <Comment />
+      <Comment postId={postId} />
       <Message />
     </div>
   )

@@ -5,7 +5,7 @@ interface IProps {
   commentCount: number;
 }
 
-const Count: React.FC<IProps> = ({likeCount}) => {
+const LikesCount: React.FC<IProps> = ({likeCount}) => {
   return (
     <div className='px-2'>
       <span className="text-sm font-semibold">{likeCount} likes</span>
@@ -13,4 +13,4 @@ const Count: React.FC<IProps> = ({likeCount}) => {
   )
 }
 
-export default Count
+export default LikesCount

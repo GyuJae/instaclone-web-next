@@ -1,13 +1,20 @@
 import React from 'react';
 import CommentIcon from '@assets/svgs/comment.svg';
+import Link from 'next/link';
 
-const Comment = () => {
+interface IProps {
+  postId: number;
+}
+
+const Comment:React.FC<IProps> = ({postId}) => {
   return (
-    <button type='button'>
-      <div className='h-5 w-5'>
-        <CommentIcon />
-      </div>
-    </button>
+    <Link href={`/${postId}`}>
+      <a>
+        <div className='h-5 w-5'>
+          <CommentIcon />
+        </div>
+      </a>
+    </Link>
   )
 }
 
