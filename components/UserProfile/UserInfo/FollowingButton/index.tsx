@@ -10,7 +10,7 @@ interface IProps {
 
 
 const FollowingButton:React.FC<IProps> = ({inView, isFollowing ,userId}) => {
-  const {toggleFollowMutate, loading} = useToggleFollow(userId);
+  const {toggleFollowMutate, loading} = useToggleFollow(userId, isFollowing);
   
   const handleClickToggleFollow = () => {
     if (loading) return;

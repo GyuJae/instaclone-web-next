@@ -1,6 +1,6 @@
 import {gql, useMutation} from '@apollo/client';
 
-export const useToggleFollow = (userId: number) => {
+export const useToggleFollow = (userId: number, isFollowing: boolean) => {
   const [toggleFollowMutate, {loading}] = useMutation<
     IToggleFollowMutation,
     IToggleFollowVariables
@@ -19,6 +19,12 @@ export const useToggleFollow = (userId: number) => {
             isFollowing(prev) {
               return !prev;
             },
+            totalFollower(prev) {
+              if (isFollowing) {
+                return prev - 1;
+              }
+              return prev + 1;
+            }
           },
         });
       }
