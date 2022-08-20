@@ -9,7 +9,7 @@ interface IProps {
 const CommentCount: React.FC<IProps> = ({commentCount, postId}) => {
   return (
     <Link href={`/${postId}`}>
-      <a className='px-2 text-gray-500'>     
+      <a className='px-2 text-sm text-gray-500'>     
         See all {commentCount} comments
       </a>
     </Link>
