@@ -16,7 +16,7 @@ const Feeditem: React.FC<IProps> = ({post}) => {
     <div className='rounded-md border-[1.5px] py-2'>
       <FeedHeader user={post.user} />
       <Files files={post.files} />
-      <FuncList />
+      <FuncList postId={post.id} isLiked={post.isLiked} />
       <Count likeCount={post.likeCount} commentCount={post.commentCount} />
       <Caption caption={post.caption} username={post.user.username} postId={post.id} />
       <Comment />

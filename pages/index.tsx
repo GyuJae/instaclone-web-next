@@ -33,15 +33,16 @@ export const getServerSideProps: GetServerSideProps = withSsrSession(
       }
     }
     
-    const apolloClient = initializeApollo(null, req.session.token)
+    const apolloClient = initializeApollo(null)
     await apolloClient.query({
       query: SEE_FEED_QUERY,
       variables: {
         input: {
           offset: 0
         }
-      },
+      }
     })
+    
     await apolloClient.query({
       query: ME_QUERY
     })

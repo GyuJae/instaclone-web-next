@@ -9,7 +9,7 @@ interface IProps {
 
 const LoggedInLayout: React.FC<PropsWithChildren<IProps>> = ({ children, title }) => {
   const headTitle = title ? `Instagram | ${title}` : 'Instagram'
-  const {mutate: logoutMutate} = useLogout()
+  const { mutate: logoutMutate } = useLogout()
   const handleClickLogout = () => {
     logoutMutate()
   }

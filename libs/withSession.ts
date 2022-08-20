@@ -5,6 +5,7 @@ import { GetServerSidePropsContext, NextApiRequest, NextApiResponse, PreviewData
 import { AppContext } from "next/app";
 import { ParsedUrlQuery } from "querystring";
 
+
 type THandler = (req: NextApiRequest, res: NextApiResponse) => void
 
 declare module "iron-session" {

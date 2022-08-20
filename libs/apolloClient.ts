@@ -27,11 +27,16 @@ const httpLink = createHttpLink({
 const cache = new InMemoryCache()
 
 function createApolloClient(token?: string) {
-  const authLink = setContext((_, { headers }) => {
+  const authLink = setContext((_, context) => {
+    let cacheToken: string = "";
+    const { headers, cache } = context;
+    if (cache.data.data.ROOT_QUERY) {
+      cacheToken = cache.data.data.ROOT_QUERY?.token || ""
+    }
     return {
       headers: {
         ...headers,
-        'x-jwt': token || "",
+        'x-jwt': token || cacheToken,
       },
     };
   });

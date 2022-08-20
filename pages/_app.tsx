@@ -1,12 +1,12 @@
 import '../styles/globals.css'
 import type { AppContext, AppProps } from 'next/app'
-import { useApollo } from '@libs/apolloClient'
+import { initializeApollo, useApollo } from '@libs/apolloClient'
 import { ApolloProvider } from '@apollo/client'
 import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
-import { isLoggedInVar, tokenVar } from '@libs/apolloVar'
 import App from 'next/app'
 import { withAppSession } from '@libs/withSession'
+import { AUTH_INFO_QUERY } from '@apollo/queries/auth.query'
 
 export type NextPageWithLayout = NextPage & {
   // eslint-disable-next-line unused-imports/no-unused-vars
@@ -31,12 +31,15 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
 MyApp.getInitialProps = async (context: AppContext) => {
   const appProps = await App.getInitialProps(context)
-  if (context.ctx.req && context.ctx.res) {
-    const {token} = await withAppSession(context)
-    tokenVar(token || "")
-    isLoggedInVar(!!token)
-  }
-  
+  const { token } = await withAppSession(context)
+  const apolloClient = initializeApollo(null, token)
+  await apolloClient.cache.writeQuery({
+    query: AUTH_INFO_QUERY,
+    data: {
+      isLoggedIn: !!token,
+      token
+    }
+  })
   return {
     ...appProps
   }

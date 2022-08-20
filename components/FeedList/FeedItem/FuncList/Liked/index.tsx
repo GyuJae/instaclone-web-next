@@ -1,34 +1,45 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import HeartIcon from '@assets/svgs/heart.svg'
 import UnHeartIcon from '@assets/svgs/heart-outline.svg'
 import { cls } from '@libs/index'
+import { useToggleLike } from '@apollo/mutations/toggleLike.mutation'
 
 interface IProps {
-  isLiked: boolean
+  isLiked: boolean;
+  postId: number;
 }
 
 const styles = {
   icon: "w-5 h-5"
 }
 
-const Liked: React.FC<IProps> = ({isLiked}) => {
+const Liked: React.FC<IProps> = ({ isLiked, postId }) => {
+  const [mounted, setMounted] = useState<boolean>(false);
+  const {toggleLikeMutate, loading} = useToggleLike(postId, isLiked)
+
+  const handleClickToggleLike = useCallback(() => {
+    if (loading) return;
+    toggleLikeMutate()
+  }, [loading, toggleLikeMutate])
+
   const LikedHeart = useMemo(() => (
-    <div className={cls(styles.icon, 'fill-red-600')}>
+    <button type='button' onClick={handleClickToggleLike} className={cls(styles.icon, 'fill-red-600')}>
       <HeartIcon />
-    </div>
-  ), [])
+    </button>
+  ), [handleClickToggleLike])
 
   const UnLikedHeart = useMemo(() => (
-    <div className={styles.icon}>
+    <button type='button' onClick={handleClickToggleLike} className={styles.icon}>
       <UnHeartIcon />
-    </div>
-  ), [])
+    </button>
+  ), [handleClickToggleLike])
+
   
   const Heart = isLiked ? LikedHeart : UnLikedHeart;
-
-  return (
-    <button type='button'>{Heart}</button>
-  )
+  
+  useEffect(() => setMounted(true), [])
+  if(!mounted) return null
+  return Heart
 }
 
 export default Liked

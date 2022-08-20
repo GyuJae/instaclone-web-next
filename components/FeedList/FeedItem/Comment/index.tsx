@@ -11,9 +11,7 @@ const Comment = () => {
     mode: 'onChange'
   })
 
-  const onSubmit: SubmitHandler<IForm> = (input) => {
-    console.log(input)
-  }
+  const onSubmit: SubmitHandler<IForm> = (input) => {}
 
   return (
     <form className='flex border-t-[1.5px] px-2 pt-1' onSubmit={handleSubmit(onSubmit)}>

@@ -3,7 +3,6 @@ import AuthErrorMessage from '@components/Auth/AuthErrorMessage';
 import AuthInput from '@components/Auth/AuthInput';
 import AuthSubmitButton from '@components/Auth/AuthSubmitButton';
 import LoggedOutLayout from '@components/Layout/LoggedOutLayout';
-import { logInUser } from '@libs/apolloVar';
 import { withSsrSession } from '@libs/withSession';
 import { useSetToken } from 'hooks/useSetToken';
 import { GetServerSideProps } from 'next';
@@ -34,9 +33,21 @@ const Login: NextPageWithLayout = () => {
       onCompleted: ({login: {ok, token}}) => {
         if (ok && token) {
           setTokenMutate(token);
-          logInUser(token);
           rounter.replace('/');
         }
+      },
+      update: (cache, {data}) => {
+        cache.modify({
+          id: "ROOT_QUERY",
+          fields: {
+            isLoggedIn() {
+              return true
+            },
+            token() {
+              return data?.login.token || ""
+            } 
+          }
+        })
       }
     })
   }
