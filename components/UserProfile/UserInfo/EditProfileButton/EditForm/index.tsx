@@ -31,8 +31,10 @@ const EditForm: React.FC<IProps> = ({ handleCloseEditForm }) => {
   });
 
   const { user } = useCacheMe();
-  const { mutate: imageUploadMutate } = useImageUpload();
+  const { mutate: imageUploadMutate, loading: uploadLoaindg } = useImageUpload();
   const { loading, editProfileMutate } = useEditProfile();
+
+  const isLoading = uploadLoaindg || loading;
 
   const onSubmit: SubmitHandler<IForm> = async ({ avatar, username }) => {
     if (loading) return;
@@ -99,7 +101,7 @@ const EditForm: React.FC<IProps> = ({ handleCloseEditForm }) => {
         </label>
         <input id='avatar' type='file' {...register('avatar')} accept='image/*' className='hidden' />
         <AuthInput label='Username' type='text' name='username' register={register('username', { required: true })} />
-        <AuthSubmitButton payload='SAVE' isValid={isValid} loading={loading} />
+        <AuthSubmitButton payload='SAVE' isValid={isValid} loading={isLoading} />
       </form>
     </div>
   );
