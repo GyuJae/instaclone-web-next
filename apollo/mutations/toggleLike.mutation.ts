@@ -1,35 +1,35 @@
-import {gql, useMutation} from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 export const useToggleLike = (postId: number, isLiked: boolean) => {
-  const [toggleLikeMutate, {loading, error}] = useMutation<
-    IToggleLikeMutation,
-    IToggleLikeVariables
-  >(TOGGLE_LIKE_MUTATION, {
-    variables: {
-      input: {
-        postId,
+  const [toggleLikeMutate, { loading, error }] = useMutation<IToggleLikeMutation, IToggleLikeVariables>(
+    TOGGLE_LIKE_MUTATION,
+    {
+      variables: {
+        input: {
+          postId,
+        },
       },
-    },
-    update: (cache, { data }) => {
-      if (data?.toggleLike.ok) {
-        const POST_ID = `PostEntity:${postId}`;
-        cache.modify({
-          id: POST_ID,
-          fields: {
-            isLiked(prev) {
-              return !prev;
+      update: (cache, { data }) => {
+        if (data?.toggleLike.ok) {
+          const POST_ID = `PostEntity:${postId}`;
+          cache.modify({
+            id: POST_ID,
+            fields: {
+              isLiked(prev) {
+                return !prev;
+              },
+              likeCount(prev) {
+                if (isLiked) {
+                  return prev - 1;
+                }
+                return prev + 1;
+              },
             },
-            likeCount(prev) {
-              if (isLiked) {
-                return prev - 1;
-              }
-              return prev + 1;
-            },
-          },
-        });
-      }
+          });
+        }
+      },
     }
-  });
+  );
 
   return {
     toggleLikeMutate,

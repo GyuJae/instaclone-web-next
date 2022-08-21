@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { RefObject, useEffect, useRef } from 'react';
 
 const defaultEvents = ['mousedown', 'touchstart'];
@@ -19,7 +20,6 @@ function off<T extends Window | Document | HTMLElement | EventTarget>(
     obj.removeEventListener(...(args as Parameters<HTMLElement['removeEventListener']>));
   }
 }
-
 
 const useClickAway = <E extends Event = Event>(
   ref: RefObject<HTMLElement | null>,

@@ -1,18 +1,18 @@
-import { ISeeFeedPost } from '@apollo/queries/seeFeed.query'
-import CommentForm from '@components/CommentForm'
-import React from 'react'
-import Caption from './Caption'
-import CommentCount from './CommentCount'
-import FeedHeader from './FeedHeader'
-import Files from './Files'
-import FuncList from './FuncList'
-import LikeCount from './LikeCount'
+import { ISeeFeedPost } from '@apollo/queries/seeFeed.query';
+import CommentForm from '@components/CommentForm';
+import React from 'react';
+import Caption from './Caption';
+import CommentCount from './CommentCount';
+import FeedHeader from './FeedHeader';
+import Files from './Files';
+import FuncList from './FuncList';
+import LikeCount from './LikeCount';
 
 interface IProps {
-  post: ISeeFeedPost
+  post: ISeeFeedPost;
 }
 
-const Feeditem: React.FC<IProps> = ({post}) => {
+const Feeditem: React.FC<IProps> = ({ post }) => {
   return (
     <div className='rounded-md border-[1.5px] py-2'>
       <FeedHeader user={post.user} />
@@ -23,7 +23,7 @@ const Feeditem: React.FC<IProps> = ({post}) => {
       <CommentCount postId={post.id} commentCount={post.commentCount} />
       <CommentForm postId={post.id} />
     </div>
-  )
-}
+  );
+};
 
-export default Feeditem
+export default Feeditem;

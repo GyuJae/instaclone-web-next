@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import { gql } from '@apollo/client';
 
 export const USER_FEED_FRAGMENT = gql`
   fragment UserFeedFragment on UserEntity {
@@ -37,4 +37,4 @@ export const USER_PROFILE_FRAGEMENT = gql`
     totalFollower
     totalFollowing
   }
-`
+`;

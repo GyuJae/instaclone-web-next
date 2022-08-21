@@ -1,5 +1,5 @@
-import React from 'react'
-import AirPlaneIcon from '@assets/svgs/paper-plane.svg'
+import React from 'react';
+import AirPlaneIcon from '@assets/svgs/paper-plane.svg';
 
 const Message = () => {
   return (
@@ -8,7 +8,7 @@ const Message = () => {
         <AirPlaneIcon />
       </div>
     </button>
-  )
-}
+  );
+};
 
-export default Message
+export default Message;

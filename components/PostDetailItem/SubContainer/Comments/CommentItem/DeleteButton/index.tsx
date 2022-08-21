@@ -1,24 +1,24 @@
-import React from 'react'
-import TrashIcon from '@assets/svgs/trash.svg'
-import { useDeleteComment } from '@apollo/mutations/deleteComment.mutation'
+import React from 'react';
+import TrashIcon from '@assets/svgs/trash.svg';
+import { useDeleteComment } from '@apollo/mutations/deleteComment.mutation';
 
 interface IProps {
   commentId: number;
   inView: boolean;
 }
 
-const DeleteButton:React.FC<IProps> = ({commentId, inView}) => {
-  const {deleteCommentMutate, loading} = useDeleteComment()
+const DeleteButton: React.FC<IProps> = ({ commentId, inView }) => {
+  const { deleteCommentMutate, loading } = useDeleteComment();
   const handleClickDelete = () => {
     if (loading) return;
     deleteCommentMutate({
       variables: {
         input: {
           commentId,
-        }
-      }
-    })
-  }
+        },
+      },
+    });
+  };
 
   if (!inView) return null;
   return (
@@ -27,7 +27,7 @@ const DeleteButton:React.FC<IProps> = ({commentId, inView}) => {
         <TrashIcon />
       </div>
     </button>
-  )
-}
+  );
+};
 
-export default DeleteButton
+export default DeleteButton;

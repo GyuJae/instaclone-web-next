@@ -6,7 +6,7 @@ interface IProps {
   postId: number;
 }
 
-const Comment:React.FC<IProps> = ({postId}) => {
+const Comment: React.FC<IProps> = ({ postId }) => {
   return (
     <Link href={`/?p=${postId}`} scroll={false}>
       <a>
@@ -15,7 +15,7 @@ const Comment:React.FC<IProps> = ({postId}) => {
         </div>
       </a>
     </Link>
-  )
-}
+  );
+};
 
-export default Comment
+export default Comment;

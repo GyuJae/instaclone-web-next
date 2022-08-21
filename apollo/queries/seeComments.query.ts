@@ -1,18 +1,18 @@
-import {gql, useQuery} from '@apollo/client';
-import {COMMENT_FRAMENT} from '../fragments/comment.fragment';
+import { gql, useQuery } from '@apollo/client';
+import { COMMENT_FRAMENT } from '../fragments/comment.fragment';
 
 export const useSeeComments = (postId: number, offset?: number) => {
-  const {data, loading, refetch, fetchMore, error} = useQuery<
-    ISeeComments,
-    ISeeCommentsVariables
-  >(SEE_COMMENTS_QUERY, {
-    variables: {
-      input: {
-        postId,
-        offset: offset || 0,
+  const { data, loading, refetch, fetchMore, error } = useQuery<ISeeComments, ISeeCommentsVariables>(
+    SEE_COMMENTS_QUERY,
+    {
+      variables: {
+        input: {
+          postId,
+          offset: offset || 0,
+        },
       },
-    },
-  });
+    }
+  );
 
   return {
     comments: data?.seeComments.comments,

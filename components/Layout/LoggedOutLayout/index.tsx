@@ -1,5 +1,5 @@
-import React, { PropsWithChildren } from 'react'
-import logoPic from '@assets/images/logo.png'
+import React, { PropsWithChildren } from 'react';
+import logoPic from '@assets/images/logo.png';
 import Image from 'next/image';
 import AuthLayout from '@components/Layout/LoggedOutLayout/AuthLayout';
 import { useRouter } from 'next/router';
@@ -9,17 +9,18 @@ interface IProps {
   title?: string;
 }
 
-type TPathnameType = 'login' | 'createAccount'
+type TPathnameType = 'login' | 'createAccount';
 
 const LoggedOutLayout: React.FC<PropsWithChildren<IProps>> = ({ children, title }) => {
-  const headTitle = title ? `Instagram | ${title}` : 'Instagram'
-  const { pathname } = useRouter()
+  const headTitle = title ? `Instagram | ${title}` : 'Instagram';
+  const { pathname } = useRouter();
 
-  const pathnameType = {
-    '/auth/create-account': 'createAccount',
-    '/auth/login': 'login'
-  }[pathname] || 'login'
-  
+  const pathnameType =
+    {
+      '/auth/create-account': 'createAccount',
+      '/auth/login': 'login',
+    }[pathname] || 'login';
+
   return (
     <>
       <Head>
@@ -27,12 +28,10 @@ const LoggedOutLayout: React.FC<PropsWithChildren<IProps>> = ({ children, title 
       </Head>
       <main className='flex min-h-screen flex-col items-center justify-center bg-gray-200'>
         <Image src={logoPic} alt='Instagram logo' width={270} height={100} />
-        <AuthLayout type={pathnameType as TPathnameType}>
-          {children}
-        </AuthLayout>
+        <AuthLayout type={pathnameType as TPathnameType}>{children}</AuthLayout>
       </main>
     </>
-  )
-}
+  );
+};
 
-export default LoggedOutLayout
+export default LoggedOutLayout;

@@ -1,9 +1,7 @@
-import {gql, useMutation} from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 export const useLogin = () => {
-  const [loginMutate, {loading}] = useMutation<ILoginMutation, ILoginVariables>(
-    LOGIN_MUTATION,
-  );
+  const [loginMutate, { loading }] = useMutation<ILoginMutation, ILoginVariables>(LOGIN_MUTATION);
 
   return {
     loginMutate,

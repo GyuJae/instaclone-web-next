@@ -1,23 +1,23 @@
-import { useRouter } from 'next/router'
-import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useRouter } from 'next/router';
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 interface IForm {
-  keyword: string
+  keyword: string;
 }
 
 const SearchInput = () => {
-  const router = useRouter()
-  const { register, handleSubmit } = useForm<IForm>()
+  const router = useRouter();
+  const { register, handleSubmit } = useForm<IForm>();
   const onSubmit: SubmitHandler<IForm> = ({ keyword }) => {
     router.push({
       pathname: '/search',
-      query: {keyword}
-    })
-  }
-  
+      query: { keyword },
+    });
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}> 
+    <form onSubmit={handleSubmit(onSubmit)}>
       <input
         className=' rounded-sm bg-gray-100 p-2'
         autoComplete='off'
@@ -25,7 +25,7 @@ const SearchInput = () => {
         {...register('keyword', { required: true })}
       />
     </form>
-  )
-}
+  );
+};
 
-export default SearchInput
+export default SearchInput;

@@ -6,9 +6,9 @@ import LoggedOutLayout from '@components/Layout/LoggedOutLayout';
 import { withSsrSession } from '@libs/withSession';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { ReactElement } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { NextPageWithLayout } from '../_app'
+import { ReactElement } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { NextPageWithLayout } from '../_app';
 
 interface IForm {
   email: string;
@@ -17,24 +17,28 @@ interface IForm {
 }
 
 const CretaeAccount: NextPageWithLayout = () => {
-  const {createAccountMutate, loading} = useCreateAccount()
-  const router = useRouter()
+  const { createAccountMutate, loading } = useCreateAccount();
+  const router = useRouter();
 
-  const { register, handleSubmit, formState: { isValid, errors } } = useForm<IForm>({
-    mode: 'onChange'
-  })
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid, errors },
+  } = useForm<IForm>({
+    mode: 'onChange',
+  });
 
   const onSubmit: SubmitHandler<IForm> = (input) => {
     if (loading) return;
     createAccountMutate({
       variables: {
-        input
+        input,
       },
       onCompleted: () => {
-        router.push('/auth/login')
-      }
+        router.push('/auth/login');
+      },
     });
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='w-full space-y-2 p-2'>
@@ -44,7 +48,7 @@ const CretaeAccount: NextPageWithLayout = () => {
         type='text'
         register={register('email', {
           required: true,
-          pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+          pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
         })}
       />
       <>
@@ -58,7 +62,7 @@ const CretaeAccount: NextPageWithLayout = () => {
         register={register('username', {
           required: true,
           minLength: 3,
-          maxLength: 15
+          maxLength: 15,
         })}
       />
       <>
@@ -75,7 +79,7 @@ const CretaeAccount: NextPageWithLayout = () => {
         register={register('password', {
           required: true,
           minLength: 8,
-          maxLength: 20
+          maxLength: 20,
         })}
       />
       <>
@@ -87,32 +91,26 @@ const CretaeAccount: NextPageWithLayout = () => {
       </>
       <AuthSubmitButton isValid={isValid} payload='Create Account' loading={loading} />
     </form>
-  )
-}
+  );
+};
 
 CretaeAccount.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <LoggedOutLayout title='Create Account'>
-      {page}
-    </LoggedOutLayout>
-  )
-}
+  return <LoggedOutLayout title='Create Account'>{page}</LoggedOutLayout>;
+};
 
-export const getServerSideProps: GetServerSideProps = withSsrSession(
-  async ({ req }) => {
-    if (req.session.token) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: "/"
-        }
-      }
-    }
-
+export const getServerSideProps: GetServerSideProps = withSsrSession(async ({ req }) => {
+  if (req.session.token) {
     return {
-      props: {}
-    }
-})
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
 
+  return {
+    props: {},
+  };
+});
 
-export default CretaeAccount
+export default CretaeAccount;

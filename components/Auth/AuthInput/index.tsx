@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface IProps {
@@ -9,18 +9,18 @@ interface IProps {
   [kay: string]: any;
 }
 
-const AuthInput:React.FC<IProps> = ({label, type, name, register ,...rest}) => {
+const AuthInput: React.FC<IProps> = ({ label, type, name, register, ...rest }) => {
   return (
     <input
       id={name}
-      type={type} 
-      autoComplete='off' 
-      placeholder={label} 
-      className='w-full rounded-sm border-[1.5px] border-gray-200 bg-gray-100'  
-      {...register} 
+      type={type}
+      autoComplete='off'
+      placeholder={label}
+      className='w-full rounded-sm border-[1.5px] border-gray-200 bg-gray-100'
+      {...register}
       {...rest}
     />
-  )
-}
+  );
+};
 
-export default AuthInput
+export default AuthInput;

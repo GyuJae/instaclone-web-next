@@ -1,7 +1,14 @@
 {
-  "extends": ["next", "next/core-web-vitals", "eslint:recommended", "plugin:tailwindcss/recommended"],
+  "extends": [
+    "next", 
+    "next/core-web-vitals", 
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:tailwindcss/recommended"
+  ],
   "root": true,
-  "plugins": ["tailwindcss","unused-imports"],
+  "plugins": ["tailwindcss", "@typescript-eslint/eslint-plugin","unused-imports"],
   "rules": {
     // Tailwind 
     "tailwindcss/classnames-order": "warn",
@@ -17,6 +24,11 @@
 		"unused-imports/no-unused-vars": [
 			"warn",
 			{ "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
-		]
+		],
+    // typescript
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }

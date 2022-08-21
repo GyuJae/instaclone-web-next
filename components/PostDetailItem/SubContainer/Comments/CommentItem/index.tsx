@@ -1,13 +1,13 @@
-import { ISeeCommentsComment } from '@apollo/queries/seeComments.query'
+import { ISeeCommentsComment } from '@apollo/queries/seeComments.query';
 import Avatar from '@components/Avatar';
-import React from 'react'
+import React from 'react';
 import DeleteButton from './DeleteButton';
 
 interface IProps {
   comment: ISeeCommentsComment;
 }
 
-const CommentItem: React.FC<IProps> = ({ comment }) => { 
+const CommentItem: React.FC<IProps> = ({ comment }) => {
   return (
     <div className='flex space-x-2'>
       <Avatar avatar={comment.user.avatar} />
@@ -19,7 +19,7 @@ const CommentItem: React.FC<IProps> = ({ comment }) => {
         <DeleteButton commentId={comment.id} inView={comment.isMine} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CommentItem
+export default CommentItem;

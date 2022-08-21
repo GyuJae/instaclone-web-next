@@ -7,50 +7,54 @@ import { withSsrSession } from '@libs/withSession';
 import { useSetToken } from 'hooks/useSetToken';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { ReactElement } from 'react'
+import { ReactElement } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { NextPageWithLayout } from '../_app'
+import { NextPageWithLayout } from '../_app';
 
 interface IForm {
   email: string;
-  password: string
+  password: string;
 }
 
 const Login: NextPageWithLayout = () => {
-  const rounter = useRouter()
-  const { loginMutate, loading } = useLogin()
-  const {mutate: setTokenMutate} = useSetToken()
-  
-  const { register, handleSubmit, formState: { isValid, errors } } = useForm<IForm>({
-    mode: 'onChange'
-  })
+  const rounter = useRouter();
+  const { loginMutate, loading } = useLogin();
+  const { mutate: setTokenMutate } = useSetToken();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid, errors },
+  } = useForm<IForm>({
+    mode: 'onChange',
+  });
 
   const onSubmit: SubmitHandler<IForm> = (input) => {
     loginMutate({
       variables: {
-        input    
+        input,
       },
-      onCompleted: ({login: {ok, token}}) => {
+      onCompleted: ({ login: { ok, token } }) => {
         if (ok && token) {
           setTokenMutate(token);
           rounter.replace('/');
         }
       },
-      update: (cache, {data}) => {
+      update: (cache, { data }) => {
         cache.modify({
-          id: "ROOT_QUERY",
+          id: 'ROOT_QUERY',
           fields: {
             isLoggedIn() {
-              return true
+              return true;
             },
             token() {
-              return data?.login.token || ""
-            } 
-          }
-        })
-      }
-    })
-  }
+              return data?.login.token || '';
+            },
+          },
+        });
+      },
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='w-full space-y-2 p-2'>
@@ -60,7 +64,7 @@ const Login: NextPageWithLayout = () => {
         type='text'
         register={register('email', {
           required: true,
-          pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+          pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
         })}
       />
       <>
@@ -73,7 +77,7 @@ const Login: NextPageWithLayout = () => {
         type='password'
         register={register('password', {
           required: true,
-          minLength: 8
+          minLength: 8,
         })}
       />
       <>
@@ -85,31 +89,26 @@ const Login: NextPageWithLayout = () => {
       </>
       <AuthSubmitButton isValid={isValid} payload='Log In' loading={loading} />
     </form>
-  )
-}
+  );
+};
 
 Login.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <LoggedOutLayout title='Login'>
-      {page}
-    </LoggedOutLayout>
-  )
-}
+  return <LoggedOutLayout title='Login'>{page}</LoggedOutLayout>;
+};
 
-export const getServerSideProps: GetServerSideProps = withSsrSession(
-  async ({ req }) => {
-    if (req.session.token) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: "/"
-        }
-      }
-    }
-
+export const getServerSideProps: GetServerSideProps = withSsrSession(async ({ req }) => {
+  if (req.session.token) {
     return {
-      props: {}
-    }
-})
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
 
-export default Login
+  return {
+    props: {},
+  };
+});
+
+export default Login;

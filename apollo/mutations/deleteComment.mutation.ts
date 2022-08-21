@@ -1,16 +1,16 @@
-import {gql, useMutation} from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 export const useDeleteComment = () => {
-  const [deleteCommentMutate, {loading}] = useMutation<
-    IDeleteCommentMutation,
-    IDeleteCommentVariables
-  >(DELETE_COMMENT_MUTATION, {
-    update: (cache, {data}, {variables}) => {
-      if (data && data.deleteComment.ok && variables) {
-        cache.evict({id: `CommentEntity:${variables.input.commentId}`})
-      }
+  const [deleteCommentMutate, { loading }] = useMutation<IDeleteCommentMutation, IDeleteCommentVariables>(
+    DELETE_COMMENT_MUTATION,
+    {
+      update: (cache, { data }, { variables }) => {
+        if (data && data.deleteComment.ok && variables) {
+          cache.evict({ id: `CommentEntity:${variables.input.commentId}` });
+        }
+      },
     }
-  });
+  );
 
   return {
     deleteCommentMutate,

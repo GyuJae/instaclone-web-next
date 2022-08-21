@@ -1,10 +1,9 @@
-import {gql, useMutation} from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 export const useCreateAccount = () => {
-  const [createAccountMutate, {loading}] = useMutation<
-    ICreateAccountMutation,
-    ICreateAccountVariables
-  >(CREATE_ACCOUNT_MUTAION);
+  const [createAccountMutate, { loading }] = useMutation<ICreateAccountMutation, ICreateAccountVariables>(
+    CREATE_ACCOUNT_MUTAION
+  );
 
   return {
     createAccountMutate,

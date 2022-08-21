@@ -1,9 +1,9 @@
-import {gql, useQuery} from '@apollo/client';
-import {POST_FEED_FRAGMENT} from '../fragments/post.fragment';
-import {USER_FEED_FRAGMENT} from '../fragments/user.fragment';
+import { gql, useQuery } from '@apollo/client';
+import { POST_FEED_FRAGMENT } from '../fragments/post.fragment';
+import { USER_FEED_FRAGMENT } from '../fragments/user.fragment';
 
 export const useSeeFeed = (offset?: number) => {
-  const {data, loading, refetch, fetchMore, error} = useQuery<ISeeFeed,ISeeFeedVariables>(SEE_FEED_QUERY, {
+  const { data, loading, refetch, fetchMore, error } = useQuery<ISeeFeed, ISeeFeedVariables>(SEE_FEED_QUERY, {
     variables: {
       input: {
         offset: offset || 0,
@@ -17,7 +17,7 @@ export const useSeeFeed = (offset?: number) => {
     refetch,
     fetchMore,
     error,
-    hasNextPage: !!data?.seeFeed.hasNextPage
+    hasNextPage: !!data?.seeFeed.hasNextPage,
   };
 };
 
