@@ -17,13 +17,13 @@ const Caption: React.FC<IProps> = ({ caption, username, postId }) => {
           if (/#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w-]+/g.test(word)) {
             return (
               <React.Fragment key={key}>
-                <Link href={`/hashtag/${word}`}>
+                <Link href={`/hashtag/${word.slice(1)}`}>
                   <a className='text-blue-800'>{word} </a>
                 </Link>
               </React.Fragment>
             );
           }
-          return <React.Fragment key={key}>{word} </React.Fragment>;
+          return <React.Fragment key={key}>{word}</React.Fragment>;
         })}
       </span>
     </div>
