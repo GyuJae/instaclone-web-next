@@ -1,9 +1,9 @@
-import { useCacheSeeFriends } from '@apollo/queries/seeFriends.query';
+import { useSeeFriends } from '@apollo/queries/seeFriends.query';
 import UserRow from '@components/UserRow';
 import React, { useMemo } from 'react';
 
 const Friends = () => {
-  const { users } = useCacheSeeFriends();
+  const { users } = useSeeFriends();
   const friendList = useMemo(() => {
     if (!users) return null;
     return users.map((user) => {
