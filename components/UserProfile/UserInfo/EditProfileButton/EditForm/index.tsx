@@ -91,7 +91,7 @@ const EditForm: React.FC<IProps> = ({ handleCloseEditForm }) => {
 
   if (!user) return null;
   return (
-    <div className='w-96 rounded-md bg-white shadow-lg'>
+    <div className='relative w-96 rounded-md bg-white shadow-lg'>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className='flex w-full flex-col items-center justify-center space-y-3 py-4 px-2'

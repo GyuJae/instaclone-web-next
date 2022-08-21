@@ -7,6 +7,8 @@ import { NextPage } from 'next';
 import App from 'next/app';
 import { withAppSession } from '@libs/withSession';
 import { AUTH_INFO_QUERY } from '@apollo/queries/auth.query';
+import Router from 'next/router';
+import { isRouteLoadingVar } from '@libs/apolloVar';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type NextPageWithLayout<P = {}> = NextPage<P> & {
@@ -17,6 +19,9 @@ export type NextPageWithLayout<P = {}> = NextPage<P> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
+
+Router.events.on('routeChangeStart', () => isRouteLoadingVar(true));
+Router.events.on('routeChangeComplete', () => isRouteLoadingVar(false));
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const apolloClient = useApollo(pageProps);

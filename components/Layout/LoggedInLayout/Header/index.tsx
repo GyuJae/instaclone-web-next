@@ -4,6 +4,7 @@ import Avatar from '@components/Avatar';
 import Logo from './Logo';
 import SearchInput from '../SearchInput';
 import Link from 'next/link';
+import LoadingBar from './LoadingBar';
 
 const Header = () => {
   const { user } = useCacheMe();
@@ -17,6 +18,7 @@ const Header = () => {
           <Avatar avatar={user?.avatar} />
         </a>
       </Link>
+      <LoadingBar />
     </header>
   );
 };
