@@ -1,7 +1,9 @@
 import { ME_QUERY } from '@apollo/queries/me.query';
 import { SEE_COMMENTS_QUERY } from '@apollo/queries/seeComments.query';
 import { SEE_FEED_QUERY } from '@apollo/queries/seeFeed.query';
+import { ISeeFriends, ISeeFriendsVariables, SEE_FRIENDS_QUERY } from '@apollo/queries/seeFriends.query';
 import FeedList from '@components/FeedList';
+import Friends from '@components/Friends';
 import LoggedInLayout from '@components/Layout/LoggedInLayout';
 import Modal from '@components/Modal';
 import PostDetailItem from '@components/PostDetailItem';
@@ -19,6 +21,9 @@ const Home: NextPageWithLayout = () => {
   return (
     <div className='mx-auto max-w-[460px] py-2'>
       <FeedList />
+      <div className='absolute top-28 right-5 hidden lg:block'>
+        <Friends />
+      </div>
       <Modal inView={!!query.p} handler={handleModal}>
         <PostDetailItem postId={+(query.p as string)} />
       </Modal>
@@ -55,6 +60,15 @@ export const getServerSideProps: GetServerSideProps = withSsrSession(async ({ re
   }
   await apolloClient.query({
     query: SEE_FEED_QUERY,
+    variables: {
+      input: {
+        offset: 0,
+      },
+    },
+  });
+
+  await apolloClient.query<ISeeFriends, ISeeFriendsVariables>({
+    query: SEE_FRIENDS_QUERY,
     variables: {
       input: {
         offset: 0,
