@@ -1,4 +1,11 @@
 import { ME_QUERY } from '@apollo/queries/me.query';
+import { SEE_COMMENTS_QUERY } from '@apollo/queries/seeComments.query';
+import { ISeePost, ISeePostVariables, SEE_POST_QUERY } from '@apollo/queries/seePost.query';
+import {
+  ISeePostsByUsername,
+  ISeePostsByUsernameVariables,
+  SEE_POSTS_BY_USERNAME_QUERY,
+} from '@apollo/queries/seePostsByUsername.query';
 import { ISeeProfile, ISeeProfileVariables, SEE_PROFILE_QUERY } from '@apollo/queries/seeProfile.query';
 import LoggedInLayout from '@components/Layout/LoggedInLayout';
 import UserProfile from '@components/UserProfile';
@@ -57,6 +64,36 @@ export const getServerSideProps: GetServerSideProps = withSsrSession(async ({ re
       },
     };
   }
+
+  await apolloClient.query<ISeePostsByUsername, ISeePostsByUsernameVariables>({
+    query: SEE_POSTS_BY_USERNAME_QUERY,
+    variables: {
+      input: {
+        username: query.username as string,
+      },
+    },
+  });
+
+  if (query.p) {
+    await apolloClient.query({
+      query: SEE_COMMENTS_QUERY,
+      variables: {
+        input: {
+          postId: +query.p,
+          offset: 0,
+        },
+      },
+    });
+    await apolloClient.query<ISeePost, ISeePostVariables>({
+      query: SEE_POST_QUERY,
+      variables: {
+        input: {
+          postId: +query.p,
+        },
+      },
+    });
+  }
+
   return addApolloState(apolloClient, {
     props: {
       username: query.username,

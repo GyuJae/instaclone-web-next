@@ -20,6 +20,7 @@ export const POST_GRID_FRAGMENT = gql`
     files {
       id
       posterPath
+      postId
     }
   }
 `;

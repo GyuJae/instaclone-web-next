@@ -8,7 +8,15 @@ interface IProps {
 
 const CommentCount: React.FC<IProps> = ({ commentCount, postId }) => {
   return (
-    <Link href={`/?p=${postId}`} scroll={false}>
+    <Link
+      href={{
+        pathname: '/',
+        query: {
+          p: postId,
+        },
+      }}
+      scroll={false}
+    >
       <a className='px-2 text-sm text-gray-500'>See all {commentCount} comments</a>
     </Link>
   );

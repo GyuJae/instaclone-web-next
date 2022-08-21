@@ -1,5 +1,7 @@
+import { useCacheSeePostsByUsername } from '@apollo/queries/seePostsByUsername.query';
 import { useSeeProfile } from '@apollo/queries/seeProfile.query';
 import Avatar from '@components/Avatar';
+import PostGrid from '@components/PostGrid';
 import React from 'react';
 import Count from './Count';
 import UserInfo from './UserInfo';
@@ -10,7 +12,7 @@ interface IProps {
 
 const UserProfile: React.FC<IProps> = ({ username }) => {
   const { user } = useSeeProfile(username);
-
+  const { posts } = useCacheSeePostsByUsername(username);
   if (!user) return null;
   return (
     <div>
@@ -21,6 +23,7 @@ const UserProfile: React.FC<IProps> = ({ username }) => {
           <Count totalFollower={user.totalFollower} totalFollowing={user.totalFollowing} />
         </div>
       </div>
+      <PostGrid files={posts?.map((post) => post.files[0])} username={username} />
     </div>
   );
 };

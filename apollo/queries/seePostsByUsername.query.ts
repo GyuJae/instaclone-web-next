@@ -12,7 +12,7 @@ export const useCacheSeePostsByUsername = (username: string) => {
     },
   });
   return {
-    post: data?.seePostsByUsername.post,
+    posts: data?.seePostsByUsername.posts,
   };
 };
 
@@ -29,7 +29,7 @@ export const useSeePostsByUsername = (username: string) => {
   );
 
   return {
-    post: data?.seePostsByUsername.post,
+    posts: data?.seePostsByUsername.posts,
     loading,
     refetch,
     error,
@@ -40,7 +40,7 @@ export const SEE_POSTS_BY_USERNAME_QUERY = gql`
   query SeePostsByUsername($input: ISeePostsByUsernameInput!) {
     seePostsByUsername(input: $input) {
       ok
-      post {
+      posts {
         ...PostGridFragment
       }
     }
@@ -51,6 +51,7 @@ export const SEE_POSTS_BY_USERNAME_QUERY = gql`
 export interface ISeePostsByUsernameFile {
   id: number;
   posterPath: string;
+  postId: number;
 }
 
 export interface ISeePostsByUsernamePost {
@@ -60,7 +61,7 @@ export interface ISeePostsByUsernamePost {
 
 export interface ISeePostsByUsernameOutput {
   ok: boolean;
-  post: ISeePostsByUsernamePost;
+  posts: ISeePostsByUsernamePost[];
 }
 
 export interface ISeePostsByUsername {

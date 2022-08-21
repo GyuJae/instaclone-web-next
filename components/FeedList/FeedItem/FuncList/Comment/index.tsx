@@ -8,7 +8,15 @@ interface IProps {
 
 const Comment: React.FC<IProps> = ({ postId }) => {
   return (
-    <Link href={`/?p=${postId}`} scroll={false}>
+    <Link
+      href={{
+        pathname: '/',
+        query: {
+          p: postId,
+        },
+      }}
+      scroll={false}
+    >
       <a>
         <div className='h-5 w-5'>
           <CommentIcon />

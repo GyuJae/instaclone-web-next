@@ -29,7 +29,7 @@ const Avatar: React.FC<IProps> = ({ size = 'S', avatar }) => {
     );
   }
 
-  return <Image src={avatar} alt='avatar' width={sizeToNum} height={sizeToNum} className='rounded-full' />;
+  return <Image src={avatar} alt='avatar' priority width={sizeToNum} height={sizeToNum} className='rounded-full' />;
 };
 
 export default Avatar;
