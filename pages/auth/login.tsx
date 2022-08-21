@@ -7,7 +7,7 @@ import { withSsrSession } from '@libs/withSession';
 import { useSetToken } from 'hooks/useSetToken';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { NextPageWithLayout } from '../_app';
 
@@ -18,6 +18,7 @@ interface IForm {
 
 const Login: NextPageWithLayout = () => {
   const rounter = useRouter();
+  const [loginError, setLoginError] = useState<string>('');
   const { loginMutate, loading } = useLogin();
   const { mutate: setTokenMutate } = useSetToken();
 
@@ -34,11 +35,12 @@ const Login: NextPageWithLayout = () => {
       variables: {
         input,
       },
-      onCompleted: ({ login: { ok, token } }) => {
+      onCompleted: ({ login: { ok, token, error } }) => {
         if (ok && token) {
           setTokenMutate(token);
           rounter.replace('/');
         }
+        if (error) setLoginError(error);
       },
       update: (cache, { data }) => {
         cache.modify({
@@ -88,6 +90,7 @@ const Login: NextPageWithLayout = () => {
         />
       </>
       <AuthSubmitButton isValid={isValid} payload='Log In' loading={loading} />
+      <AuthErrorMessage inView={!!loginError} message={loginError} />
     </form>
   );
 };

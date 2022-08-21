@@ -19,7 +19,6 @@ interface IProps {
 
 const Search: NextPageWithLayout<IProps> = ({ keyword }) => {
   const { posts } = useCacheSeeSearchPosts(keyword);
-  console.log(posts);
   return (
     <div className='mx-auto max-w-[460px] py-2'>
       <PostGrid

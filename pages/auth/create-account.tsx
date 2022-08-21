@@ -6,7 +6,7 @@ import LoggedOutLayout from '@components/Layout/LoggedOutLayout';
 import { withSsrSession } from '@libs/withSession';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { NextPageWithLayout } from '../_app';
 
@@ -17,6 +17,7 @@ interface IForm {
 }
 
 const CretaeAccount: NextPageWithLayout = () => {
+  const [createAccountError, setCreateAccountError] = useState<string>('');
   const { createAccountMutate, loading } = useCreateAccount();
   const router = useRouter();
 
@@ -34,8 +35,11 @@ const CretaeAccount: NextPageWithLayout = () => {
       variables: {
         input,
       },
-      onCompleted: () => {
-        router.push('/auth/login');
+      onCompleted: ({ createAccount: { ok, error } }) => {
+        if (ok) {
+          router.push('/auth/login');
+        }
+        if (error) setCreateAccountError(error);
       },
     });
   };
@@ -90,6 +94,7 @@ const CretaeAccount: NextPageWithLayout = () => {
         />
       </>
       <AuthSubmitButton isValid={isValid} payload='Create Account' loading={loading} />
+      <AuthErrorMessage inView={!!createAccountError} message={createAccountError} />
     </form>
   );
 };
