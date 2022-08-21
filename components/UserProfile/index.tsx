@@ -23,7 +23,12 @@ const UserProfile: React.FC<IProps> = ({ username }) => {
           <Count totalFollower={user.totalFollower} totalFollowing={user.totalFollowing} />
         </div>
       </div>
-      <PostGrid files={posts?.map((post) => post.files[0])} username={username} />
+      <PostGrid
+        files={posts?.map((post) => post.files[0])}
+        callbackURL={{
+          pathname: `/profile/${username}`,
+        }}
+      />
     </div>
   );
 };

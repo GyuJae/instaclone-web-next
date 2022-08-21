@@ -8,24 +8,29 @@ interface IProps {
     posterPath: string;
     postId: number;
   };
-  username: string;
+  callbackURL: {
+    pathname: string;
+    query?: {
+      [key: string]: string;
+    };
+  };
 }
 
 const PostGridItem: React.FC<IProps> = (props) => {
-  const { username, file } = props;
+  const { callbackURL, file } = props;
   return (
     <li className='h-36 w-full'>
       <Link
         href={{
-          pathname: `/profile/${username}/`,
-          query: { p: file.postId },
+          pathname: callbackURL.pathname,
+          query: { p: file.postId, ...callbackURL.query },
         }}
         scroll={false}
       >
         <a>
           <div className='relative h-full w-full rounded-sm bg-black hover:brightness-110 active:brightness-90'>
             <Image
-              alt={`${username}-${file.postId}`}
+              alt={`photo-${file.postId}`}
               src={file.posterPath}
               layout='fill'
               objectFit='contain'

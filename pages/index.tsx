@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = withSsrSession(async ({ re
     };
   }
 
-  const apolloClient = initializeApollo(null);
+  const apolloClient = initializeApollo();
 
   if (query.p) {
     await apolloClient.query({
