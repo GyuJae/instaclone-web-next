@@ -1,8 +1,13 @@
 import { useApolloClient } from '@apollo/client';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 export const useLogout = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const apolloClient = useApolloClient();
   const mutate = () => {
+    setLoading(true);
     fetch('/api/auth/logout', {
       method: 'POST',
       headers: {
@@ -23,11 +28,16 @@ export const useLogout = () => {
               },
             },
           });
+          router.replace('/auth/login');
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   return {
     mutate,
+    loading,
   };
 };
