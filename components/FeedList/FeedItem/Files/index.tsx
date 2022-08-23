@@ -40,7 +40,7 @@ const swipePower = (offset: number, velocity: number) => {
 };
 
 const styles = {
-  arrowButton: 'absolute z-10 h-12 w-10 fill-gray-800 opacity-0 hover:opacity-60',
+  arrowButton: 'absolute z-10 w-2 fill-gray-800 hover:opacity-60',
 };
 
 const Files: React.FC<IProps> = ({ files, isDetail = false }) => {
