@@ -23,7 +23,7 @@ const Caption: React.FC<IProps> = ({ caption, username, postId }) => {
               </React.Fragment>
             );
           }
-          return <React.Fragment key={key}>{word}</React.Fragment>;
+          return <React.Fragment key={key}>{word} </React.Fragment>;
         })}
       </span>
     </div>

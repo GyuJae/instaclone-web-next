@@ -6,14 +6,15 @@ import Message from './Message';
 interface IProps {
   postId: number;
   isLiked: boolean;
+  userId: number;
 }
 
-const FuncList: React.FC<IProps> = ({ postId, isLiked }) => {
+const FuncList: React.FC<IProps> = ({ postId, isLiked, userId }) => {
   return (
     <div className='flex space-x-3 px-2 pb-0 pt-2'>
       <Liked isLiked={isLiked} postId={postId} />
       <Comment postId={postId} />
-      <Message />
+      <Message userId={userId} />
     </div>
   );
 };
