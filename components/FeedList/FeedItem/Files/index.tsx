@@ -6,6 +6,7 @@ import LeftIcon from '@assets/svgs/chevron-left.svg';
 import RightIcon from '@assets/svgs/chevron-right.svg';
 import { cls } from '@libs/index';
 import Indicator from './Indicator';
+import Image from 'next/image';
 
 interface IProps {
   files: ISeeFeedFile[];
@@ -76,9 +77,8 @@ const Files: React.FC<IProps> = ({ files, isDetail = false }) => {
         )}
       >
         <AnimatePresence initial={false} custom={direction}>
-          <motion.img
+          <motion.div
             key={page}
-            src={files[fileIndex].posterPath}
             custom={direction}
             variants={variants}
             initial='enter'
@@ -92,8 +92,18 @@ const Files: React.FC<IProps> = ({ files, isDetail = false }) => {
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={1}
             onDragEnd={handleDragEnd}
-            className='absolute'
-          />
+            className={cls(
+              'absolute w-full flex justify-center items-center',
+              isDetail ? 'min-h-[480px]' : 'min-h-[300px]'
+            )}
+          >
+            <Image
+              alt={`photo-${files[fileIndex].id}`}
+              src={files[fileIndex].posterPath}
+              layout='fill'
+              className='pointer-events-none absolute object-contain'
+            />
+          </motion.div>
         </AnimatePresence>
         <button type='button' onClick={handleClickLeft} className={cls(styles.arrowButton, 'left-5')}>
           <LeftIcon />
