@@ -102,6 +102,7 @@ const Files: React.FC<IProps> = ({ files, isDetail = false }) => {
               src={files[fileIndex].posterPath}
               layout='fill'
               className='pointer-events-none absolute object-contain'
+              priority
             />
           </motion.div>
         </AnimatePresence>

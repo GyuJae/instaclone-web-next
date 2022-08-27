@@ -1,9 +1,12 @@
 import { useMemo } from 'react';
-import { ApolloClient, InMemoryCache, from, NormalizedCacheObject, createHttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, from, NormalizedCacheObject, HttpLink, split } from '@apollo/client';
+import { getMainDefinition } from '@apollo/client/utilities';
 import { onError } from '@apollo/client/link/error';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 import { setContext } from '@apollo/client/link/context';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { createClient } from 'graphql-ws';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -17,9 +20,30 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const httpLink = createHttpLink({
+const httpLink = new HttpLink({
   uri: 'http://localhost:4000/graphql',
 });
+
+const wsLink =
+  typeof window !== 'undefined'
+    ? new GraphQLWsLink(
+        createClient({
+          url: 'ws://localhost:4000/subscriptions',
+        })
+      )
+    : undefined;
+
+const splitLink =
+  typeof window !== 'undefined' && wsLink != null
+    ? split(
+        ({ query }) => {
+          const definition = getMainDefinition(query);
+          return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
+        },
+        httpLink,
+        wsLink
+      )
+    : httpLink;
 
 const cache = new InMemoryCache();
 
@@ -40,7 +64,7 @@ function createApolloClient(token?: string) {
 
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: from([errorLink, authLink.concat(httpLink)]),
+    link: from([errorLink, authLink.concat(splitLink)]),
     cache,
   });
 }

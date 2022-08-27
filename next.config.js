@@ -7,10 +7,10 @@ module.exports = {
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
       use: ['@svgr/webpack'],
-    })
-    return config
+    });
+    return config;
   },
   images: {
     domains: ['imagedelivery.net'],
   },
-}
+};

@@ -2,9 +2,11 @@ import { ME_QUERY } from '@apollo/queries/me.query';
 import { SEE_COMMENTS_QUERY } from '@apollo/queries/seeComments.query';
 import { SEE_FEED_QUERY } from '@apollo/queries/seeFeed.query';
 import { ISeeFriends, ISeeFriendsVariables, SEE_FRIENDS_QUERY } from '@apollo/queries/seeFriends.query';
+import { ISeeRoom, ISeeRoomVariables, SEE_ROOM_QUERY } from '@apollo/queries/seeRoom.query';
 import FeedList from '@components/FeedList';
 import Friends from '@components/Friends';
 import LoggedInLayout from '@components/Layout/LoggedInLayout';
+import MessageRoom from '@components/MessageRoom';
 import Modal from '@components/Modal';
 import PostDetailItem from '@components/PostDetailItem';
 import { addApolloState, initializeApollo } from '@libs/apolloClient';
@@ -26,6 +28,9 @@ const Home: NextPageWithLayout = () => {
       </div>
       <Modal inView={!!query.p} handler={handleModal}>
         <PostDetailItem postId={+(query.p as string)} />
+      </Modal>
+      <Modal inView={!!query.mr} handler={handleModal}>
+        <MessageRoom />
       </Modal>
     </div>
   );
@@ -58,6 +63,18 @@ export const getServerSideProps: GetServerSideProps = withSsrSession(async ({ re
       },
     });
   }
+
+  if (query.mr) {
+    await apolloClient.query<ISeeRoom, ISeeRoomVariables>({
+      query: SEE_ROOM_QUERY,
+      variables: {
+        input: {
+          roomId: +query.mr,
+        },
+      },
+    });
+  }
+
   await apolloClient.query({
     query: SEE_FEED_QUERY,
     variables: {
