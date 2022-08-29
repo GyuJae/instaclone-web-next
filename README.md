@@ -37,3 +37,38 @@ export const getServerSideProps: GetServerSideProps = withSsrSession(async ({ re
   });
 })
 ```
+
+### Apllo Cache
+- Apollo Cache를 이용하여 cache에 저장된 데이터를 수동으로 조작하여 서버와의 통신 없이 실시간으로 데이터를 변경 또는 추가하였다. 
+
+```ts
+const [toggleLikeMutate, { loading, error }] = useMutation<IToggleLikeMutation, IToggleLikeVariables>(
+    TOGGLE_LIKE_MUTATION,
+    {
+      variables: {
+        input: {
+          postId,
+        },
+      },
+      update: (cache, { data }) => {
+        if (data?.toggleLike.ok) {
+          const POST_ID = `PostEntity:${postId}`;
+          cache.modify({
+            id: POST_ID,
+            fields: {
+              isLiked(prev) {
+                return !prev;
+              },
+              likeCount(prev) {
+                if (isLiked) {
+                  return prev - 1;
+                }
+                return prev + 1;
+              },
+            },
+          });
+        }
+      },
+    }
+  );
+```
