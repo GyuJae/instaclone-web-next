@@ -113,7 +113,7 @@ const Files: React.FC<IProps> = ({ files, isDetail = false }) => {
           <RightIcon />
         </button>
       </div>
-      <div className={cls('absolute w-full', isDetail ? 'bottom-5' : '-bottom-5 ')}>
+      <div className={cls('absolute w-full z-10', isDetail ? 'bottom-5' : '-bottom-5 ')}>
         <Indicator totalCount={files.length} currentIndex={fileIndex} />
       </div>
     </div>
