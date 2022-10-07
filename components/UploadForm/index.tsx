@@ -5,9 +5,10 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Form from './Form';
 import Previews from './Previews';
+import Title from './Title';
 
 interface IForm {
-  files: FileList;
+  files: FileList | null;
 }
 
 interface IPreview {
@@ -17,12 +18,17 @@ interface IPreview {
 
 const UploadForm = () => {
   const [previews, setPreviews] = useState<IPreview[]>([]);
-  const { register, watch } = useForm<IForm>();
+  const { register, watch, setValue } = useForm<IForm>();
 
   const inView = useReactiveVar(isUploadComponentVar);
 
   const handleClose = () => {
     isUploadComponentVar(false);
+  };
+
+  const handleDeleteSelectFiles = () => {
+    setPreviews([]);
+    setValue('files', null);
   };
 
   const filesWatch = watch('files');
@@ -43,7 +49,7 @@ const UploadForm = () => {
   return (
     <Modal inView={inView} handler={handleClose}>
       <div className='flex w-96 flex-col justify-center rounded-md bg-white py-2'>
-        <h3 className='w-full border-b-[1.5px] py-2 text-center font-semibold'>Create New Post</h3>
+        <Title isSelectImages={previews.length > 0} handleDeleteSelectFiles={handleDeleteSelectFiles} />
         <Form inView={previews.length === 0} register={register} />
         <Previews inView={previews.length > 0} previews={previews} />
       </div>

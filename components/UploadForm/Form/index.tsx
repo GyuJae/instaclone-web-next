@@ -4,7 +4,7 @@ import { UseFormRegister } from 'react-hook-form';
 
 interface IProps {
   inView: boolean;
-  register: UseFormRegister<{ files: FileList }>;
+  register: UseFormRegister<{ files: FileList | null }>;
 }
 
 const Form: React.FC<IProps> = ({ inView, register }) => {
