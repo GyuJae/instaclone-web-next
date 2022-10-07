@@ -2,13 +2,14 @@ import { useReactiveVar } from '@apollo/client';
 import Modal from '@components/Modal';
 import { isUploadComponentVar } from '@libs/apolloVar';
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import Form from './Form';
 import Previews from './Previews';
 import Title from './Title';
 
 interface IForm {
   files: FileList | null;
+  caption?: string | null;
 }
 
 interface IPreview {
@@ -18,7 +19,11 @@ interface IPreview {
 
 const UploadForm = () => {
   const [previews, setPreviews] = useState<IPreview[]>([]);
-  const { register, watch, setValue } = useForm<IForm>();
+  const { register, watch, setValue, handleSubmit } = useForm<IForm>();
+
+  const onSubmit: SubmitHandler<IForm> = (data) => {
+    console.log(data);
+  };
 
   const inView = useReactiveVar(isUploadComponentVar);
 
@@ -48,11 +53,11 @@ const UploadForm = () => {
   if (!inView) return null;
   return (
     <Modal inView={inView} handler={handleClose}>
-      <div className='flex w-96 flex-col justify-center rounded-md bg-white py-2'>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center rounded-md bg-white py-2'>
         <Title isSelectImages={previews.length > 0} handleDeleteSelectFiles={handleDeleteSelectFiles} />
         <Form inView={previews.length === 0} register={register} />
-        <Previews inView={previews.length > 0} previews={previews} />
-      </div>
+        <Previews inView={previews.length > 0} previews={previews} register={register('caption')} />
+      </form>
     </Modal>
   );
 };

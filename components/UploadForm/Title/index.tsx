@@ -17,6 +17,11 @@ const Title: React.FC<IProps> = ({ isSelectImages, handleDeleteSelectFiles }) =>
         </button>
       )}
       <h3 className='w-full border-b-[1.5px] py-2 text-center font-semibold'>Create New Post</h3>
+      {isSelectImages && (
+        <button type='submit' className='absolute right-3 top-[10px] font-semibold text-blue-400'>
+          Share
+        </button>
+      )}
     </div>
   );
 };
