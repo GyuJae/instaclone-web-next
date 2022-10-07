@@ -1,3 +1,4 @@
+import UploadForm from '@components/UploadForm';
 import Head from 'next/head';
 import React, { PropsWithChildren } from 'react';
 import Header from './Header';
@@ -15,7 +16,10 @@ const LoggedInLayout: React.FC<PropsWithChildren<IProps>> = ({ children, title }
         <title>{headTitle}</title>
       </Head>
       <Header />
-      <main>{children}</main>
+      <main>
+        {children}
+        <UploadForm />
+      </main>
     </>
   );
 };
