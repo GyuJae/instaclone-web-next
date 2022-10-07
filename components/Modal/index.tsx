@@ -4,14 +4,13 @@ import ReactDOM from 'react-dom';
 
 interface IProps {
   inView: boolean;
-  handler: () => void;
+  handler?: () => void;
 }
 
 const Modal: React.FC<PropsWithChildren<IProps>> = ({ children, inView, handler }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useClickAway(containerRef, handler);
+  useClickAway(containerRef, handler!);
 
   useEffect(() => {
     setMounted(true);
