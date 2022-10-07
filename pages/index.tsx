@@ -21,10 +21,12 @@ const Home: NextPageWithLayout = () => {
   const { query, push } = router;
   const handleModal = () => push('/', {}, { scroll: false });
   return (
-    <div className='mx-auto max-w-[460px] py-2'>
-      <FeedList />
-      <div className='absolute top-28 right-5 hidden lg:block'>
-        <Friends />
+    <div className='mx-auto py-2'>
+      <div className='flex justify-center space-x-2'>
+        <FeedList />
+        <div className='hidden lg:block'>
+          <Friends />
+        </div>
       </div>
       <Modal inView={!!query.p} handler={handleModal}>
         <PostDetailItem postId={+(query.p as string)} />

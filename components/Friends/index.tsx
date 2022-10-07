@@ -12,7 +12,7 @@ const Friends = () => {
     });
   }, [users]);
 
-  return <div className='w-64 rounded-md bg-gray-200 py-2'>{friendList}</div>;
+  return <div className='w-64 py-2'>{friendList}</div>;
 };
 
 export default Friends;

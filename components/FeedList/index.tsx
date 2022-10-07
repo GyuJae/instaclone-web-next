@@ -7,14 +7,14 @@ const FeedList = () => {
   const { posts } = useSeeFeed();
 
   const feedList = useMemo(() => {
-    if (!posts) return <NotFound />;
+    if (!posts || posts.length === 0) return <NotFound />;
     return posts.map((post, index) => {
       const key = `feed-${post.id}-${index}`;
       return <Feeditem key={key} post={post} />;
     });
   }, [posts]);
 
-  return <div className='space-y-2'>{feedList}</div>;
+  return <div className='w-[460px] space-y-2'>{feedList}</div>;
 };
 
 export default FeedList;

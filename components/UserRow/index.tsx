@@ -16,11 +16,11 @@ interface IProps {
 const UserRow: React.FC<IProps> = ({ user }) => {
   if (user.isMe) return null;
   return (
-    <div className='flex w-full items-center justify-between py-1 px-2 hover:bg-gray-300'>
+    <div className='flex w-full items-center justify-between py-1 px-2'>
       <Link href={`/profile/${user.username}`}>
         <a>
           <div className='flex items-center space-x-2'>
-            <Avatar avatar={user.avatar} />
+            <Avatar avatar={user.avatar} size={'S'} />
             <span className='text-sm font-semibold'>{user.username}</span>
           </div>
         </a>

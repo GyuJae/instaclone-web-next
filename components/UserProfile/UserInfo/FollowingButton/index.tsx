@@ -24,7 +24,7 @@ const FollowingButton: React.FC<IProps> = ({ inView, isFollowing, userId }) => {
       type='button'
       onClick={handleClickToggleFollow}
       className={cls(
-        'rounded-sm px-4 py-2 text-sm hover:brightness-110 active:brightness-90 font-semibold',
+        'rounded-sm px-3 py-2 text-xs hover:brightness-110 active:brightness-90 font-semibold',
         isFollowing ? 'border-[1px] border-black' : 'bg-blue-400 text-white'
       )}
     >

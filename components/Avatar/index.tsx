@@ -10,7 +10,7 @@ interface IProps {
 
 const Avatar: React.FC<IProps> = ({ size = 'S', avatar }) => {
   const sizeToNum = {
-    S: 48,
+    S: 40,
     M: 60,
     L: 80,
   }[size];
@@ -23,7 +23,7 @@ const Avatar: React.FC<IProps> = ({ size = 'S', avatar }) => {
 
   if (!avatar) {
     return (
-      <div className={cls(sizeToTailwind, 'fill-gray-400')}>
+      <div className={cls(sizeToTailwind, 'fill-gray-300')}>
         <CircleUserIcon />
       </div>
     );
