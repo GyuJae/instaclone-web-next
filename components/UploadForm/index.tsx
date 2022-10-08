@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client';
+import { useCreatePost } from '@apollo/mutations/createPost.mutation';
 import Modal from '@components/Modal';
 import { isUploadComponentVar } from '@libs/apolloVar';
 import React, { useEffect, useState } from 'react';
@@ -20,9 +21,40 @@ interface IPreview {
 const UploadForm = () => {
   const [previews, setPreviews] = useState<IPreview[]>([]);
   const { register, watch, setValue, handleSubmit } = useForm<IForm>();
-
-  const onSubmit: SubmitHandler<IForm> = (data) => {
-    console.log(data);
+  const { loading, mutate } = useCreatePost();
+  const onSubmit: SubmitHandler<IForm> = ({ files, caption }) => {
+    if (loading) return;
+    const filesUrls: string[] = [];
+    if (files && files.length > 0) {
+      Object.values(files).forEach(async (image) => {
+        const { uploadURL } = await fetch('http://localhost:4000/imgFile').then((res) => res.json());
+        const form = new FormData();
+        form.append('file', image, image.name);
+        await fetch(uploadURL, {
+          method: 'POST',
+          body: form,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const {
+              result: { id },
+            } = data;
+            filesUrls.push(`https://imagedelivery.net/ZYLViq3IecpAakTgPse5sg/${id}/instaFile`);
+          })
+          .then(() => {
+            if (filesUrls.length === files.length) {
+              mutate({
+                variables: {
+                  input: {
+                    files: filesUrls,
+                    caption,
+                  },
+                },
+              });
+            }
+          });
+      });
+    }
   };
 
   const inView = useReactiveVar(isUploadComponentVar);
