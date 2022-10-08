@@ -4,7 +4,6 @@ import Image from 'next/image';
 import AuthLayout from '@components/Layout/LoggedOutLayout/AuthLayout';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Loading from './Loading';
 
 interface IProps {
   title?: string;
@@ -30,7 +29,6 @@ const LoggedOutLayout: React.FC<PropsWithChildren<IProps>> = ({ children, title 
       <main className='flex min-h-screen flex-col items-center justify-center bg-gray-200'>
         <Image src={logoPic} alt='Instagram logo' width={270} height={100} />
         <AuthLayout type={pathnameType as TPathnameType}>{children}</AuthLayout>
-        <Loading />
       </main>
     </>
   );

@@ -4,7 +4,6 @@ import Avatar from '@components/Avatar';
 import Logo from './Logo';
 import SearchInput from '../SearchInput';
 import Link from 'next/link';
-import LoadingBar from './LoadingBar';
 import SquarePulsIcon from '@assets/svgs/square-plus.svg';
 import { isUploadComponentVar } from '@libs/apolloVar';
 
@@ -28,7 +27,6 @@ const Header = () => {
           </a>
         </Link>
       </div>
-      <LoadingBar />
     </header>
   );
 };
