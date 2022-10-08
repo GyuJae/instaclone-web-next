@@ -86,7 +86,11 @@ const UploadForm = () => {
   return (
     <Modal inView={inView} handler={handleClose}>
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center rounded-md bg-white py-2'>
-        <Title isSelectImages={previews.length > 0} handleDeleteSelectFiles={handleDeleteSelectFiles} />
+        <Title
+          isSelectImages={previews.length > 0}
+          handleDeleteSelectFiles={handleDeleteSelectFiles}
+          loading={loading}
+        />
         <Form inView={previews.length === 0} register={register} />
         <Previews inView={previews.length > 0} previews={previews} register={register('caption')} />
       </form>

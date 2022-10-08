@@ -1,6 +1,7 @@
 import { useSeeComments } from '@apollo/queries/seeComments.query';
 import React, { useMemo } from 'react';
 import CommentItem from './CommentItem';
+import NoComments from './NoComments';
 
 interface IProps {
   postId: number;
@@ -21,7 +22,7 @@ const Comments: React.FC<IProps> = ({ postId }) => {
     });
   }, [comments, postId]);
 
-  if (!comments || comments.length === 0) return <div className={styles.container} />;
+  if (!comments || comments.length === 0) return <NoComments />;
   return <div className={styles.container}>{commentList}</div>;
 };
 
