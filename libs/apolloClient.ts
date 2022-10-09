@@ -18,7 +18,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: process.env.BACKEND_URL ? process.env.BACKEND_URL + 'graphql' : 'http://localhost:4000/graphql',
 });
 
 const cache = new InMemoryCache();

@@ -27,7 +27,9 @@ const UploadForm = () => {
     const filesUrls: string[] = [];
     if (files && files.length > 0) {
       Object.values(files).forEach(async (image) => {
-        const { uploadURL } = await fetch('http://localhost:4000/imgFile').then((res) => res.json());
+        const { uploadURL } = await fetch(
+          process.env.BACKEND_URL ? process.env.BACKEND_URL + 'imgFile' : 'http://localhost:4000/imgFile'
+        ).then((res) => res.json());
         const form = new FormData();
         form.append('file', image, image.name);
         await fetch(uploadURL, {
