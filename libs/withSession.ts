@@ -15,7 +15,7 @@ declare module 'iron-session' {
 
 const sessionOptions = {
   cookieName: 'instacloneSession',
-  password: process.env.COOKIE_PASSWORD!,
+  password: process.env.NEXT_PUBLIC_COOKIE_PASSWORD!,
 };
 
 export function withApiSession(handler: THandler) {
