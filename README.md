@@ -1,6 +1,7 @@
 # Instagram clone Web
-![background](https://velog.velcdn.com/images/nuo/post/178c01fb-8990-4d24-a989-093c029889ed/image.png)
+![background](https://imagedelivery.net/ZYLViq3IecpAakTgPse5sg/874cb7f8-fa41-4b83-e80b-3aa8e5f4b100/public)
 
+- **Deploy URL** <br/> https://tranquil-moxie-b25f5b.netlify.app/
 - **Github Repository URL** <br/> https://github.com/GyuJae/instaclone-web-next
 - **BackEnd Github Repository URL** <br/>https://github.com/GyuJae/instagramclone_backend
 - **Native App Repository URL** <br/> https://github.com/GyuJae/instaclone-native
