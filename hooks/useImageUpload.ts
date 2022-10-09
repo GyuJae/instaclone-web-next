@@ -5,7 +5,9 @@ export const useImageUpload = () => {
   const mutate = async () => {
     setLoading(true);
     const { id: avatarName, uploadURL } = await fetch(
-      process.env.BACKEND_URL ? process.env.BACKEND_URL + 'imgFile' : 'http://localhost:4000/imgFile'
+      process.env.NEXT_PUBLIC_BACKEND_URL
+        ? process.env.NEXT_PUBLIC_BACKEND_URL + 'imgFile'
+        : 'http://localhost:4000/imgFile'
     )
       .then((res) => res.json())
       .finally(() => setLoading(false));
