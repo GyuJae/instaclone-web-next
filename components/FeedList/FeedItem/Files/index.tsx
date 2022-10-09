@@ -108,10 +108,20 @@ const Files: React.FC<IProps> = ({ files, isDetail = false }) => {
         </AnimatePresence>
         {files.length > 1 && (
           <>
-            <button type='button' onClick={handleClickLeft} className={cls(styles.arrowButton, 'left-5')}>
+            <button
+              name='paginateLeft'
+              type='button'
+              onClick={handleClickLeft}
+              className={cls(styles.arrowButton, 'left-5')}
+            >
               <LeftIcon />
             </button>
-            <button type='button' onClick={handleClickRight} className={cls(styles.arrowButton, 'right-5')}>
+            <button
+              name='paginateRight'
+              type='button'
+              onClick={handleClickRight}
+              className={cls(styles.arrowButton, 'right-5')}
+            >
               <RightIcon />
             </button>
           </>

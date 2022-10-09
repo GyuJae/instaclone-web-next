@@ -11,7 +11,12 @@ const Title: React.FC<IProps> = ({ isSelectImages, handleDeleteSelectFiles, load
   return (
     <div className='relative'>
       {isSelectImages && (
-        <button type='button' onClick={handleDeleteSelectFiles} className='absolute left-3 top-[10px]'>
+        <button
+          name='imageDelete'
+          type='button'
+          onClick={handleDeleteSelectFiles}
+          className='absolute left-3 top-[10px]'
+        >
           <div className='w-3'>
             <LeftIcon />
           </div>

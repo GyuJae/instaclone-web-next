@@ -18,7 +18,7 @@ const Header = () => {
       <Logo />
       <SearchInput />
       <div className='flex items-center justify-center space-x-5'>
-        <button type='button' onClick={handleOpenUploadModal} className='h-6 w-6 fill-black'>
+        <button name='uploadPost' type='button' onClick={handleOpenUploadModal} className='h-6 w-6 fill-black'>
           <SquarePulsIcon />
         </button>
         <Link href={`/profile/${user?.username}`}>

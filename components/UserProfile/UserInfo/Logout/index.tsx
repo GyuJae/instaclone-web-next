@@ -27,6 +27,7 @@ const Logout: React.FC<IProps> = ({ inView }) => {
   return (
     <>
       <button
+        name='logout'
         type='button'
         onClick={handlerClickLogout}
         onMouseEnter={handleHoverOpenMessage}
