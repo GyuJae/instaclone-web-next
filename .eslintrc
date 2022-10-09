@@ -10,6 +10,12 @@
   "root": true,
   "plugins": ["tailwindcss", "@typescript-eslint/eslint-plugin","unused-imports"],
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     // Tailwind 
     "tailwindcss/classnames-order": "warn",
     "tailwindcss/enforces-negative-arbitrary-values": "warn",

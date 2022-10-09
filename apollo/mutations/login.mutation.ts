@@ -3,6 +3,21 @@ import { gql, useMutation } from '@apollo/client';
 export const useLogin = () => {
   const [loginMutate, { loading }] = useMutation<ILoginMutation, ILoginVariables>(LOGIN_MUTATION, {
     refetchQueries: 'all',
+    update: (cache, { data }) => {
+      if (data && data.login.ok && data.login.token) {
+        cache.modify({
+          id: 'ROOT_QUERY',
+          fields: {
+            isLoggedIn() {
+              return true;
+            },
+            token() {
+              return data.login.token;
+            },
+          },
+        });
+      }
+    },
   });
 
   return {

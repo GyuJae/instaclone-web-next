@@ -22,10 +22,12 @@ const UploadForm = () => {
   const [previews, setPreviews] = useState<IPreview[]>([]);
   const { register, watch, setValue, handleSubmit } = useForm<IForm>();
   const { loading, mutate } = useCreatePost();
+  const [cloudFlareLoading, setCloudFlareLoading] = useState(false);
   const onSubmit: SubmitHandler<IForm> = ({ files, caption }) => {
     if (loading) return;
     const filesUrls: string[] = [];
     if (files && files.length > 0) {
+      setCloudFlareLoading(true);
       Object.values(files).forEach(async (image) => {
         const { uploadURL } = await fetch(
           process.env.NEXT_PUBLIC_BACKEND_URL
@@ -57,6 +59,9 @@ const UploadForm = () => {
               });
               handleClose();
             }
+          })
+          .finally(() => {
+            setCloudFlareLoading(false);
           });
       });
     }
@@ -95,7 +100,7 @@ const UploadForm = () => {
         <Title
           isSelectImages={previews.length > 0}
           handleDeleteSelectFiles={handleDeleteSelectFiles}
-          loading={loading}
+          loading={loading || cloudFlareLoading}
         />
         <Form inView={previews.length === 0} register={register} />
         <Previews inView={previews.length > 0} previews={previews} register={register('caption')} />
