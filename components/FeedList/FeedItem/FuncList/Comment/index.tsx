@@ -17,7 +17,7 @@ const Comment: React.FC<IProps> = ({ postId }) => {
       }}
       scroll={false}
     >
-      <a>
+      <a aria-label='open comments'>
         <div className='h-5 w-5'>
           <CommentIcon />
         </div>

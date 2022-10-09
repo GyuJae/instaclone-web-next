@@ -14,7 +14,7 @@ const EditProfileButton: React.FC<IProps> = ({ inView }) => {
   return (
     <>
       <button
-        name='editProfile'
+        aria-label='editProfile'
         type='button'
         onClick={handleOpenEditForm}
         className='rounded-sm bg-blue-400 px-4 py-2 text-sm font-semibold text-white hover:brightness-110 active:brightness-90'

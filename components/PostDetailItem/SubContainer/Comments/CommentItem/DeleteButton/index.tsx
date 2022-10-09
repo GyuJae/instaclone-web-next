@@ -22,7 +22,7 @@ const DeleteButton: React.FC<IProps> = ({ commentId, inView }) => {
 
   if (!inView) return null;
   return (
-    <button name='deleteComment' type='button' onClick={handleClickDelete}>
+    <button aria-label='deleteComment' type='button' onClick={handleClickDelete}>
       <div className='h-2 w-2 fill-gray-400 hover:brightness-110 active:brightness-90'>
         <TrashIcon />
       </div>

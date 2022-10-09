@@ -21,7 +21,7 @@ const FollowingButton: React.FC<IProps> = ({ inView, isFollowing, userId }) => {
   if (!inView) return null;
   return (
     <button
-      name='toggleFollow'
+      aria-label='toggleFollow'
       type='button'
       onClick={handleClickToggleFollow}
       className={cls(

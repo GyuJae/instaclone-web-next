@@ -7,7 +7,7 @@ const Logo = () => {
   return (
     <Link href='/'>
       <a>
-        <Image src={InstaLogo} alt='Instagram logo' width={120} height={40} />
+        <Image src={InstaLogo} alt='Instagram logo' width={120} height={42.7} />
       </a>
     </Link>
   );

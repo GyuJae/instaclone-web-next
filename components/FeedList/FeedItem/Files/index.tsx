@@ -109,7 +109,7 @@ const Files: React.FC<IProps> = ({ files, isDetail = false }) => {
         {files.length > 1 && (
           <>
             <button
-              name='paginateLeft'
+              aria-label='paginateLeft'
               type='button'
               onClick={handleClickLeft}
               className={cls(styles.arrowButton, 'left-5')}
@@ -117,7 +117,7 @@ const Files: React.FC<IProps> = ({ files, isDetail = false }) => {
               <LeftIcon />
             </button>
             <button
-              name='paginateRight'
+              aria-label='paginateRight'
               type='button'
               onClick={handleClickRight}
               className={cls(styles.arrowButton, 'right-5')}

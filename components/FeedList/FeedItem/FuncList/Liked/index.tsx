@@ -24,7 +24,12 @@ const Liked: React.FC<IProps> = ({ isLiked, postId }) => {
 
   const LikedHeart = useMemo(
     () => (
-      <button name='like' type='button' onClick={handleClickToggleLike} className={cls(styles.icon, 'fill-red-600')}>
+      <button
+        aria-label='like'
+        type='button'
+        onClick={handleClickToggleLike}
+        className={cls(styles.icon, 'fill-red-600')}
+      >
         <HeartIcon />
       </button>
     ),
@@ -33,7 +38,7 @@ const Liked: React.FC<IProps> = ({ isLiked, postId }) => {
 
   const UnLikedHeart = useMemo(
     () => (
-      <button name='unlike' type='button' onClick={handleClickToggleLike} className={styles.icon}>
+      <button aria-label='unlike' type='button' onClick={handleClickToggleLike} className={styles.icon}>
         <UnHeartIcon />
       </button>
     ),

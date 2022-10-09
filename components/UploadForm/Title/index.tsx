@@ -12,7 +12,7 @@ const Title: React.FC<IProps> = ({ isSelectImages, handleDeleteSelectFiles, load
     <div className='relative'>
       {isSelectImages && (
         <button
-          name='imageDelete'
+          aria-label='imageDelete'
           type='button'
           onClick={handleDeleteSelectFiles}
           className='absolute left-3 top-[10px]'
