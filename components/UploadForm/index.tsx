@@ -51,6 +51,7 @@ const UploadForm = () => {
                   },
                 },
               });
+              handleClose();
             }
           });
       });
@@ -60,6 +61,7 @@ const UploadForm = () => {
   const inView = useReactiveVar(isUploadComponentVar);
 
   const handleClose = () => {
+    handleDeleteSelectFiles();
     isUploadComponentVar(false);
   };
 

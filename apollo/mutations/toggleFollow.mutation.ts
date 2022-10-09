@@ -1,5 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCacheMe } from '@apollo/queries/me.query';
+import { SEE_FEED_QUERY } from '@apollo/queries/seeFeed.query';
 
 export const useToggleFollow = (userId: number, isFollowing: boolean) => {
   const { user } = useCacheMe();
@@ -11,6 +12,16 @@ export const useToggleFollow = (userId: number, isFollowing: boolean) => {
           userId,
         },
       },
+      refetchQueries: [
+        {
+          query: SEE_FEED_QUERY,
+          variables: {
+            input: {
+              offset: 0,
+            },
+          },
+        },
+      ],
       update: (cache, { data }, { variables }) => {
         if (data && data.toggleFollow.ok && variables && user) {
           const USER_ID = `UserEntity:${variables.input.userId}`;

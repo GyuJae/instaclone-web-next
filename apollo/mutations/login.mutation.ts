@@ -1,7 +1,9 @@
 import { gql, useMutation } from '@apollo/client';
 
 export const useLogin = () => {
-  const [loginMutate, { loading }] = useMutation<ILoginMutation, ILoginVariables>(LOGIN_MUTATION);
+  const [loginMutate, { loading }] = useMutation<ILoginMutation, ILoginVariables>(LOGIN_MUTATION, {
+    refetchQueries: 'all',
+  });
 
   return {
     loginMutate,

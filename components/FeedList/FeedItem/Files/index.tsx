@@ -106,12 +106,16 @@ const Files: React.FC<IProps> = ({ files, isDetail = false }) => {
             />
           </motion.div>
         </AnimatePresence>
-        <button type='button' onClick={handleClickLeft} className={cls(styles.arrowButton, 'left-5')}>
-          <LeftIcon />
-        </button>
-        <button type='button' onClick={handleClickRight} className={cls(styles.arrowButton, 'right-5')}>
-          <RightIcon />
-        </button>
+        {files.length > 1 && (
+          <>
+            <button type='button' onClick={handleClickLeft} className={cls(styles.arrowButton, 'left-5')}>
+              <LeftIcon />
+            </button>
+            <button type='button' onClick={handleClickRight} className={cls(styles.arrowButton, 'right-5')}>
+              <RightIcon />
+            </button>
+          </>
+        )}
       </div>
       <div className={cls('absolute w-full z-10', isDetail ? 'bottom-5' : '-bottom-5 ')}>
         <Indicator totalCount={files.length} currentIndex={fileIndex} />

@@ -5,7 +5,6 @@ import NotFound from './NotFound';
 
 const FeedList = () => {
   const { posts } = useSeeFeed();
-
   const feedList = useMemo(() => {
     if (!posts || posts.length === 0) return <NotFound />;
     return posts.map((post, index) => {

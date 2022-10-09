@@ -1,7 +1,19 @@
 import { gql, useMutation } from '@apollo/client';
+import { SEE_FEED_QUERY } from '@apollo/queries/seeFeed.query';
 
 export const useCreatePost = () => {
-  const [mutate, { loading, data }] = useMutation<ICreatePostMutation, ICreatePostVariables>(CREATE_POST_MUTATION);
+  const [mutate, { loading, data }] = useMutation<ICreatePostMutation, ICreatePostVariables>(CREATE_POST_MUTATION, {
+    refetchQueries: [
+      {
+        query: SEE_FEED_QUERY,
+        variables: {
+          input: {
+            offset: 0,
+          },
+        },
+      },
+    ],
+  });
 
   return {
     mutate,

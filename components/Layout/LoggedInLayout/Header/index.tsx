@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCacheMe } from '@apollo/queries/me.query';
+import { useMe } from '@apollo/queries/me.query';
 import Avatar from '@components/Avatar';
 import Logo from './Logo';
 import SearchInput from '../SearchInput';
@@ -8,7 +8,7 @@ import SquarePulsIcon from '@assets/svgs/square-plus.svg';
 import { isUploadComponentVar } from '@libs/apolloVar';
 
 const Header = () => {
-  const { user } = useCacheMe();
+  const { user } = useMe();
   const handleOpenUploadModal = () => {
     isUploadComponentVar(true);
   };
