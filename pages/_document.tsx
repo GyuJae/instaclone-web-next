@@ -3,8 +3,10 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 class MainDocument extends Document {
   render() {
     return (
-      <Html>
-        <Head />
+      <Html lang='en'>
+        <Head>
+          <meta name='description' content='intagram clone' />
+        </Head>
         <body>
           <Main />
           <NextScript />
