@@ -20,7 +20,7 @@ const Login: NextPageWithLayout = () => {
   const rounter = useRouter();
   const [loginError, setLoginError] = useState<string>('');
   const { loginMutate, loading } = useLogin();
-  const { mutate: setTokenMutate } = useSetToken();
+  const { mutate: setTokenMutate, loading: loginLoading } = useSetToken();
 
   const {
     register,
@@ -89,7 +89,7 @@ const Login: NextPageWithLayout = () => {
           message='Minimum 8 characters or more and maximum 20 characters or less'
         />
       </>
-      <AuthSubmitButton isValid={isValid} payload='Log In' loading={loading} />
+      <AuthSubmitButton isValid={isValid} payload='Log In' loading={loading || loginLoading} />
       <AuthErrorMessage inView={!!loginError} message={loginError} />
     </form>
   );
